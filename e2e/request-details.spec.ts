@@ -10,6 +10,15 @@ async function signIn(page: Page) {
   await expect(page).toHaveURL("/", { timeout: 30_000 });
 }
 
+function requestForProject(
+  projectName: string,
+  numbers: { desktop: string; tablet: string; mobile: string },
+) {
+  if (projectName === "chromium") return numbers.desktop;
+  if (projectName === "tablet-chrome") return numbers.tablet;
+  return numbers.mobile;
+}
+
 test.beforeEach(async ({ page }) => {
   await signIn(page);
 });
@@ -17,7 +26,11 @@ test.beforeEach(async ({ page }) => {
 test("loads request history directly and saves an optimistic status update", async ({
   page,
 }, testInfo) => {
-  const requestNumber = testInfo.project.name === "chromium" ? "SR-10001" : "SR-10002";
+  const requestNumber = requestForProject(testInfo.project.name, {
+    desktop: "SR-10001",
+    tablet: "SR-10009",
+    mobile: "SR-10002",
+  });
   await page.goto(`/requests/${requestNumber}`);
 
   await expect(page.getByText(requestNumber, { exact: true }).first()).toBeVisible();
@@ -40,7 +53,11 @@ test("loads request history directly and saves an optimistic status update", asy
 });
 
 test("rolls an optimistic update back when the API fails", async ({ page }, testInfo) => {
-  const requestNumber = testInfo.project.name === "chromium" ? "SR-10003" : "SR-10004";
+  const requestNumber = requestForProject(testInfo.project.name, {
+    desktop: "SR-10003",
+    tablet: "SR-10010",
+    mobile: "SR-10004",
+  });
   await page.goto(`/requests/${requestNumber}`);
   const status = page.getByLabel("Status");
   const current = await status.inputValue();
@@ -77,7 +94,11 @@ test("shows a designed not-found state for an unknown request", async ({ page })
 test("updates an assignee and safely replays the same mutation", async ({
   page,
 }, testInfo) => {
-  const requestNumber = testInfo.project.name === "chromium" ? "SR-10007" : "SR-10008";
+  const requestNumber = requestForProject(testInfo.project.name, {
+    desktop: "SR-10007",
+    tablet: "SR-10011",
+    mobile: "SR-10008",
+  });
   await page.goto(`/requests/${requestNumber}`);
 
   const panel = page.getByRole("region", { name: "Manage request" });

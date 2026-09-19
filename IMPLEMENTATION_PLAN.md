@@ -40,7 +40,7 @@ Verification record: the initial migration deployed successfully; the determinis
 Status: completed and verified on 2026-09-20
 
 - Implement seeded credentials, password hashing, signed sessions, login/logout, and safe return paths.
-- Add middleware early redirects plus authoritative server/API checks.
+- Add Next.js proxy early redirects plus authoritative server/API checks.
 - Build the responsive portal shell, navigation, account menu, and authentication states.
 - Add auth integration tests and protected-route Playwright coverage.
 
@@ -76,7 +76,7 @@ Verification record: direct request URLs, activity history, status transitions, 
 
 ## Phase 6 - Hardening and final delivery
 
-Status: planned
+Status: completed and verified on 2026-09-20
 
 - Complete responsive and accessibility review at mobile, tablet, and desktop widths.
 - Review performance, indexes, client bundles, caching, and query projections.
@@ -85,3 +85,5 @@ Status: planned
 - Run full clean verification and mark the requirements checklist.
 
 Exit criteria: complete runnable implementation, all applicable checklist items complete, and every verification gate green.
+
+Verification record: response security headers, cache behavior, responsive layouts, horizontal overflow, semantic structure, focus handling, live announcements, and reduced-motion styling were reviewed. Automated WCAG A/AA scans passed on login, overview, request list, and request details in desktop, tablet, and mobile Chromium profiles. The complete database, lint, strict typecheck, unit/component test, production build, and Playwright gates passed before final delivery.

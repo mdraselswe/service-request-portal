@@ -2,13 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BarChart3, Inbox, LayoutDashboard, Users } from "lucide-react";
+import { Inbox, LayoutDashboard } from "lucide-react";
 
 const navigation = [
   { href: "/", label: "Overview", icon: LayoutDashboard, exact: true },
   { href: "/requests", label: "Requests", icon: Inbox, exact: false },
-  { href: "/analytics", label: "Analytics", icon: BarChart3, exact: false },
-  { href: "/team", label: "Team", icon: Users, exact: false },
 ] as const;
 
 export function PortalNavigation() {

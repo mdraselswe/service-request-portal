@@ -69,39 +69,39 @@ export default async function RequestDetailsPage({ params }: RequestDetailsPageP
               <p className="whitespace-pre-wrap text-sm leading-7 text-foreground">
                 {request.description}
               </p>
-              <dl className="mt-6 grid gap-5 border-t border-border pt-6 sm:grid-cols-2">
+              <div className="mt-6 grid gap-5 border-t border-border pt-6 sm:grid-cols-2">
                 <div className="flex gap-3">
                   <UserRound aria-hidden="true" className="mt-0.5 size-4.5 text-muted-foreground" />
-                  <div>
+                  <dl>
                     <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Requester</dt>
                     <dd className="mt-1 text-sm font-semibold">{request.requester.name}</dd>
                     <dd className="mt-0.5 flex items-center gap-1 text-xs text-muted-foreground"><Mail aria-hidden="true" className="size-3" />{request.requester.email}</dd>
-                  </div>
+                  </dl>
                 </div>
                 <div className="flex gap-3">
                   <Folder aria-hidden="true" className="mt-0.5 size-4.5 text-muted-foreground" />
-                  <div>
+                  <dl>
                     <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Category</dt>
                     <dd className="mt-1 text-sm font-semibold">{request.category.name}</dd>
-                  </div>
+                  </dl>
                 </div>
                 <div className="flex gap-3">
                   <UserRound aria-hidden="true" className="mt-0.5 size-4.5 text-muted-foreground" />
-                  <div>
+                  <dl>
                     <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Current assignee</dt>
                     <dd className="mt-1 text-sm font-semibold">{request.assignee?.name ?? "Unassigned"}</dd>
-                  </div>
+                  </dl>
                 </div>
                 <div className="flex gap-3">
                   <CalendarDays aria-hidden="true" className="mt-0.5 size-4.5 text-muted-foreground" />
-                  <div>
+                  <dl>
                     <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Resolution</dt>
                     <dd className="mt-1 text-sm font-semibold">
                       {request.resolvedAt ? format(request.resolvedAt, "MMMM d, yyyy") : "Not resolved"}
                     </dd>
-                  </div>
+                  </dl>
                 </div>
-              </dl>
+              </div>
             </CardContent>
           </Card>
 

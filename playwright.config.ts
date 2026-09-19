@@ -13,6 +13,10 @@ export default defineConfig({
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    {
+      name: "tablet-chrome",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 820, height: 1180 } },
+    },
     { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
   ],
   webServer: {

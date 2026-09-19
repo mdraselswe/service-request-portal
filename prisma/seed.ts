@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import { scryptSync } from "node:crypto";
 
 import { PrismaClient } from "@prisma/client";

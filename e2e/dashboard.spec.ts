@@ -26,6 +26,9 @@ test("restores filtered, sorted, and paginated state from the URL", async ({
   await expect(page.getByLabel("Sort requests")).toHaveValue("requestNumber:asc");
   await expect(page.getByText(/Page 2 of/)).toBeVisible();
   await expect(page).toHaveURL(/status=OPEN/);
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+  ).toBe(true);
 });
 
 test("debounces search and preserves a shareable URL", async ({ page }) => {

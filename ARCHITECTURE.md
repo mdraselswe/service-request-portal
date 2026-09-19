@@ -4,7 +4,7 @@
 
 ```text
 Browser
-  -> Next.js middleware (early authentication redirect)
+  -> Next.js proxy (early authentication redirect)
   -> App Router Server Components / Route Handlers (authoritative auth)
   -> Domain queries, commands, and validation
   -> Prisma Client
@@ -97,6 +97,7 @@ Credentials
 - Use secure cookies in production and explicit expiry.
 - Use generic login errors to avoid account enumeration.
 - Escape output through React and do not render unsanitized HTML.
+- Send defensive frame, MIME-sniffing, referrer, and browser-permission response headers.
 
 The role model supports `ADMIN`, `AGENT`, and non-login `REQUESTER` records. Active administrators and agents can access the portal; requesters represent stakeholders attached to service requests. Mutation permissions remain centralized so policy can evolve without rewriting UI code.
 
@@ -113,13 +114,13 @@ The role model supports `ADMIN`, `AGENT`, and non-login `REQUESTER` records. Act
 - Pure unit tests cover query normalization and the activity summary algorithm.
 - React Testing Library covers accessible interactive components and rollback behavior.
 - Route/domain tests cover authentication, validation, filtering, and transactional commands with an isolated database where appropriate.
-- Playwright covers login, protected redirect, dashboard URL state, details direct access, and a successful/failed update path.
+- Playwright covers login, protected redirect, dashboard URL state, details direct access, successful/failed updates, responsive overflow, and WCAG A/AA scans at desktop, tablet, and mobile widths.
 - Test helpers generate explicit data and avoid dependence on the large development seed.
 
 ## 8. Operational model
 
 - `.env.example` documents required local values; `.env` and SQLite runtime files are ignored.
-- `yarn prisma:migrate` creates the schema.
+- `yarn db:deploy` applies the checked-in schema migration.
 - `yarn db:seed` creates deterministic demo data and credentials.
 - `yarn dev` starts local development.
 - `yarn build` is the production compilation gate.
@@ -138,9 +139,13 @@ Accepted. Protected database reads stay on the server and the browser receives l
 
 Accepted for a self-contained assessment and reproducible local setup. Repository/query boundaries allow a future database change without rewriting page components.
 
-### ADR-004: Custom signed-cookie credential session
+### ADR-004: Signed-cookie credential session
 
-Accepted for a simple local assessment flow with a small dependency surface. Authorization remains server-side and the design can be replaced behind the session API if an external identity provider is later required.
+Accepted for a simple local assessment flow. JOSE signs and verifies the expiring token while authorization remains server-side; the design can be replaced behind the session API if an external identity provider is later required.
+
+### ADR-006: Dynamic protected reads
+
+Accepted. Protected mutable pages and API responses are dynamic and use `no-store`, preventing user-specific request data from entering a shared public cache. Mutation success refreshes the affected Server Component tree.
 
 ### ADR-005: Offset pagination
 

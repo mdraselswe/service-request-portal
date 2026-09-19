@@ -4,13 +4,13 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Product and platform
 
-- [ ] Build a compact, production-minded service request management portal.
+- [x] Build a compact, production-minded service request management portal.
 - [x] Use Next.js App Router for the frontend and backend/API; do not create a separate backend service.
 - [x] Use TypeScript with strict compiler settings.
 - [x] Use Tailwind CSS and shadcn/ui for a modern professional SaaS dashboard.
 - [x] Use Yarn as the package manager.
 - [x] Run locally without a paid external service.
-- [ ] Provide complete runnable source code.
+- [x] Provide complete runnable source code.
 
 ## Authentication and authorization
 
@@ -62,7 +62,7 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 - [x] Use Server Components by default.
 - [x] Limit Client Components to interactive boundaries.
 - [x] Avoid unnecessary rendering, client JavaScript, and network requests.
-- [ ] Define suitable request-level caching/revalidation behavior for protected, mutable data.
+- [x] Define suitable request-level caching/revalidation behavior for protected, mutable data.
 
 ## Advanced JavaScript utility
 
@@ -74,29 +74,29 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Responsive design and accessibility
 
-- [ ] Support mobile, tablet, and desktop layouts.
-- [ ] Provide visible keyboard focus and complete keyboard access for interactive controls.
-- [ ] Use semantic HTML and appropriate accessible names.
-- [ ] Associate validation errors and labels with inputs.
-- [ ] Use accessible status announcements for asynchronous feedback.
-- [ ] Maintain reasonable color contrast and touch target sizing.
-- [ ] Respect reduced-motion preferences.
+- [x] Support mobile, tablet, and desktop layouts.
+- [x] Provide visible keyboard focus and complete keyboard access for interactive controls.
+- [x] Use semantic HTML and appropriate accessible names.
+- [x] Associate validation errors and labels with inputs.
+- [x] Use accessible status announcements for asynchronous feedback.
+- [x] Maintain reasonable color contrast and touch target sizing.
+- [x] Respect reduced-motion preferences.
 
 ## Architecture and quality
 
 - [x] Use a clear, maintainable project structure.
 - [x] Use reusable UI and domain components.
-- [ ] Separate presentation, domain logic, data access, validation, and authentication concerns.
-- [ ] Use consistent naming and typed boundaries.
-- [ ] Add appropriate error handling and structured API responses.
+- [x] Separate presentation, domain logic, data access, validation, and authentication concerns.
+- [x] Use consistent naming and typed boundaries.
+- [x] Add appropriate error handling and structured API responses.
 - [x] Add ESLint and formatting conventions.
 - [x] Use Vitest and React Testing Library for unit/component coverage.
 - [x] Add selected Playwright tests for critical user journeys.
-- [ ] Run lint, typecheck, tests, and production build before each milestone is considered complete.
+- [x] Run lint, typecheck, tests, and production build before each milestone is considered complete.
 
 ## Documentation and delivery
 
-- [ ] Provide a complete README with prerequisites, setup, seed, run, test, build, and test credentials.
+- [x] Provide a complete README with prerequisites, setup, seed, run, test, build, and test credentials.
 - [x] Document Server vs Client Component decisions.
 - [x] Document state and data-fetching decisions.
 - [x] Document performance considerations.

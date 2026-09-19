@@ -1,11 +1,8 @@
-import Link from "next/link";
 import {
   ChevronDown,
-  CircleHelp,
   LayoutDashboard,
   LogOut,
   Menu,
-  Settings,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -52,16 +49,6 @@ export function PortalShell({
             Workspace
           </p>
           <PortalNavigation />
-        </div>
-        <div className="space-y-1 border-t border-border p-3">
-          <Link className="flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground" href="/settings">
-            <Settings aria-hidden="true" className="size-4.5" />
-            Settings
-          </Link>
-          <Link className="flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground" href="/help">
-            <CircleHelp aria-hidden="true" className="size-4.5" />
-            Help center
-          </Link>
         </div>
       </aside>
 

@@ -4,7 +4,7 @@
 
 The Service Request Portal is an authenticated internal dashboard for reviewing, searching, filtering, and managing support requests. Next.js owns both rendering and HTTP APIs. SQLite provides a zero-cost local datastore through Prisma.
 
-The first milestone establishes the verified project foundation. Later phases add the full data model, authentication, dashboard, request details, mutations, and production-quality test coverage.
+The delivered application includes the verified foundation, complete data model, authentication, dashboard, request details, resilient mutations, and production-quality test coverage.
 
 ## 2. Chosen stack
 
@@ -32,8 +32,8 @@ Exact package versions are locked in `yarn.lock`; upgrade decisions must preserv
 - `/login` accepts a seeded test user's email and password.
 - A successful login creates a signed, expiring, HTTP-only, `sameSite=lax` session cookie.
 - Credentials are stored as password hashes, never plaintext.
-- Middleware performs an early redirect for clearly unauthenticated page requests.
-- Server pages and Route Handlers perform authoritative session checks; middleware is not the sole security boundary.
+- The Next.js proxy performs an early redirect for clearly unauthenticated page requests.
+- Server pages and Route Handlers perform authoritative session checks; the proxy is not the sole security boundary.
 - Logout invalidates the session and redirects to `/login`.
 
 ### 3.2 Dashboard query contract
@@ -72,7 +72,7 @@ Invalid values are normalized on the server. Search/filter/sort changes reset `p
 
 ## 4. Data model
 
-Planned core models:
+Core models:
 
 - `User`: authenticated users and assignable agents.
 - `Category`: stable service categories.
@@ -87,7 +87,7 @@ The deterministic seed creates at least 10,000 varied requests, multiple users a
 ## 5. Rendering and state strategy
 
 - Server Components are the default for layouts, dashboard results, details, and activity history.
-- Client Components are limited to the login form, debounced URL controls, mobile navigation, mutation controls, toasts, and other genuinely interactive primitives.
+- Client Components are limited to the login form, debounced URL controls, active navigation, mutation controls, and other genuinely interactive primitives.
 - Search/filter/sort/pagination state lives in the URL. There is no duplicate global client store for server query state.
 - Temporary form state and optimistic mutation state remain local to their Client Components.
 - Protected request data is dynamically rendered and not stored in a public shared cache.
@@ -133,3 +133,5 @@ yarn build
 ```
 
 Relevant milestones also run selected Playwright tests. Failures must be fixed before committing.
+
+The final regression matrix runs Playwright in desktop, tablet, and mobile Chromium profiles and includes automated WCAG A/AA scanning.
