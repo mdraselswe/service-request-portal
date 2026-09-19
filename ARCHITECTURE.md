@@ -61,6 +61,7 @@ URL searchParams
   -> Prisma where/orderBy/skip/take
   -> small typed projection
   -> Server Component table/cards
+  -> narrow Client Components update only canonical URL parameters
 ```
 
 ### Request mutation

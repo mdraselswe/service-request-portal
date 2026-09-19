@@ -1,47 +1,18 @@
 import Link from "next/link";
 import {
-  BarChart3,
   ChevronDown,
   CircleHelp,
-  Inbox,
   LayoutDashboard,
   LogOut,
   Menu,
   Settings,
-  Users,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { logoutAction } from "@/features/auth/actions";
 import type { AuthenticatedUser } from "@/features/auth/session";
 
-const navigation = [
-  { href: "/", label: "Overview", icon: LayoutDashboard },
-  { href: "/requests", label: "Requests", icon: Inbox },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/team", label: "Team", icon: Users },
-] as const;
-
-function NavigationLinks() {
-  return (
-    <nav aria-label="Primary navigation" className="space-y-1">
-      {navigation.map(({ href, label, icon: Icon }, index) => (
-        <Link
-          className={
-            index === 0
-              ? "flex h-10 items-center gap-3 rounded-lg bg-primary/10 px-3 text-sm font-semibold text-primary"
-              : "flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-          }
-          href={href}
-          key={href}
-        >
-          <Icon aria-hidden="true" className="size-4.5" />
-          {label}
-        </Link>
-      ))}
-    </nav>
-  );
-}
+import { PortalNavigation } from "./portal-navigation";
 
 export function PortalShell({
   user,
@@ -80,7 +51,7 @@ export function PortalShell({
           <p className="mb-2 px-3 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-muted-foreground">
             Workspace
           </p>
-          <NavigationLinks />
+          <PortalNavigation />
         </div>
         <div className="space-y-1 border-t border-border p-3">
           <Link className="flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground hover:bg-muted hover:text-foreground" href="/settings">
@@ -102,7 +73,7 @@ export function PortalShell({
               <span className="sr-only">Open navigation</span>
             </summary>
             <div className="absolute left-0 top-12 w-64 rounded-xl border border-border bg-background p-3 shadow-xl">
-              <NavigationLinks />
+              <PortalNavigation />
             </div>
           </details>
 

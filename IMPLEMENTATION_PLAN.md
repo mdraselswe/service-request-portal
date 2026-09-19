@@ -50,7 +50,7 @@ Verification record: signed HTTP-only sessions, authoritative database-backed us
 
 ## Phase 4 - Dashboard and URL state
 
-Status: planned
+Status: completed and verified on 2026-09-20
 
 - Implement validated URL parsing and database-backed search/filter/sort/pagination.
 - Build debounced search, multi-filter controls, active-filter summaries, sorting, pagination, and responsive table/cards.
@@ -58,6 +58,8 @@ Status: planned
 - Test URL restoration, invalid parameters, query behavior, and keyboard access.
 
 Exit criteria: dashboard behavior remains correct with the 10,000+ seed and direct URL navigation.
+
+Verification record: direct filtered URLs, debounced search, repeated status and priority filters, assignee/category filters, sorting, bounded page sizes, pagination, desktop tables, and mobile cards passed unit tests and eight desktop/mobile Playwright journeys against the 10,050-request dataset.
 
 ## Phase 5 - Request details and resilient updates
 

@@ -22,14 +22,14 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Request dashboard
 
-- [ ] Display request ID, subject, requester, category, priority, status, assignee, and last-updated time.
-- [ ] Support a debounced free-text search.
-- [ ] Support multiple simultaneous filters.
-- [ ] Support sorting.
-- [ ] Support server-side pagination.
-- [ ] Preserve meaningful search, filter, sort, and pagination state in the URL.
-- [ ] Keep URL state shareable and functional after refresh/direct navigation.
-- [ ] Provide a responsive table on larger screens and a usable compact presentation on small screens.
+- [x] Display request ID, subject, requester, category, priority, status, assignee, and last-updated time.
+- [x] Support a debounced free-text search.
+- [x] Support multiple simultaneous filters.
+- [x] Support sorting.
+- [x] Support server-side pagination.
+- [x] Preserve meaningful search, filter, sort, and pagination state in the URL.
+- [x] Keep URL state shareable and functional after refresh/direct navigation.
+- [x] Provide a responsive table on larger screens and a usable compact presentation on small screens.
 
 ## Request details and updates
 
@@ -45,23 +45,23 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Application states and resilience
 
-- [ ] Provide intentional loading states.
-- [ ] Provide empty states.
+- [x] Provide intentional loading states.
+- [x] Provide empty states.
 - [ ] Provide client and server validation feedback.
 - [ ] Provide success feedback.
-- [ ] Provide recoverable error states.
-- [ ] Provide a designed not-found experience.
+- [x] Provide recoverable error states.
+- [x] Provide a designed not-found experience.
 - [ ] Use consistent error handling rather than default browser behavior.
 
 ## Data, performance, and scale
 
 - [x] Use Prisma with SQLite.
 - [x] Seed at least 10,000 realistic service requests with requesters, assignees, and activity history.
-- [ ] Perform filtering, sorting, and pagination in the database rather than loading the full dataset into the browser.
+- [x] Perform filtering, sorting, and pagination in the database rather than loading the full dataset into the browser.
 - [x] Add indexes aligned with common query paths.
-- [ ] Use Server Components by default.
-- [ ] Limit Client Components to interactive boundaries.
-- [ ] Avoid unnecessary rendering, client JavaScript, and network requests.
+- [x] Use Server Components by default.
+- [x] Limit Client Components to interactive boundaries.
+- [x] Avoid unnecessary rendering, client JavaScript, and network requests.
 - [ ] Define suitable request-level caching/revalidation behavior for protected, mutable data.
 
 ## Advanced JavaScript utility
