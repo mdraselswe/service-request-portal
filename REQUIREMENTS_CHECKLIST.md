@@ -14,11 +14,11 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Authentication and authorization
 
-- [ ] Provide a simple login flow with documented test credentials.
-- [ ] Provide logout.
-- [ ] Protect all application pages from unauthenticated access.
-- [ ] Protect relevant API operations independently of page protection.
-- [ ] Avoid exposing protected request data through cached/public responses.
+- [x] Provide a simple login flow with documented test credentials.
+- [x] Provide logout.
+- [x] Protect all application pages from unauthenticated access.
+- [x] Protect relevant API operations independently of page protection.
+- [x] Avoid exposing protected request data through cached/public responses.
 
 ## Request dashboard
 

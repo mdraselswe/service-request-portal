@@ -80,7 +80,9 @@ User selection
 Credentials
   -> server validation
   -> constant-time password hash verification
-  -> signed HTTP-only session cookie
+  -> signed, expiring HTTP-only session cookie
+  -> Next.js proxy performs an optimistic signature check
+  -> protected layout/API reloads the active user from SQLite
   -> redirect to validated internal return path
 ```
 

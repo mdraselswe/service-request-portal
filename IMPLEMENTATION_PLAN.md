@@ -37,7 +37,7 @@ Verification record: the initial migration deployed successfully; the determinis
 
 ## Phase 3 - Authentication and protected shell
 
-Status: planned
+Status: completed and verified on 2026-09-20
 
 - Implement seeded credentials, password hashing, signed sessions, login/logout, and safe return paths.
 - Add middleware early redirects plus authoritative server/API checks.
@@ -45,6 +45,8 @@ Status: planned
 - Add auth integration tests and protected-route Playwright coverage.
 
 Exit criteria: protected pages and APIs reject anonymous access; documented credentials work.
+
+Verification record: signed HTTP-only sessions, authoritative database-backed user checks, the Next.js 16 proxy redirect, login validation, API rejection, logout, and safe return paths passed unit, component, desktop Chromium, and mobile Chromium tests.
 
 ## Phase 4 - Dashboard and URL state
 

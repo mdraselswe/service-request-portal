@@ -2,7 +2,7 @@
 
 A production-minded internal service request dashboard for As-Sunnah Foundation, built with Next.js App Router, strict TypeScript, Tailwind CSS, shadcn/ui conventions, Prisma, and SQLite.
 
-> Completed milestone: Phase 1 project foundation. Authentication, the complete domain model, the 10,000+ record seed, dashboard workflows, and request mutations are planned in the subsequent phases described in `IMPLEMENTATION_PLAN.md`.
+> Completed through Phase 3: project foundation, the complete seeded data model, authentication, protected APIs, and the responsive portal shell. Dashboard workflows, request details, and resilient mutations are delivered in the subsequent phases described in `IMPLEMENTATION_PLAN.md`.
 
 ## Prerequisites
 
@@ -74,7 +74,7 @@ See `TECH_SPEC.md` for contracts, `ARCHITECTURE.md` for system boundaries and de
 
 ## Test credentials
 
-The seed prepares `admin@assunnah.org` with password `Portal@123`. The login flow becomes available in Phase 3; these credentials are strictly for local assessment use.
+Use `admin@assunnah.org` with password `Portal@123`. These credentials are strictly for local assessment use. Change `SESSION_SECRET` and replace seeded credentials before any non-assessment deployment.
 
 ## Repository policy
 
