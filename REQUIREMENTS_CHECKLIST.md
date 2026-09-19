@@ -55,10 +55,10 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Data, performance, and scale
 
-- [ ] Use Prisma with SQLite.
-- [ ] Seed at least 10,000 realistic service requests with requesters, assignees, and activity history.
+- [x] Use Prisma with SQLite.
+- [x] Seed at least 10,000 realistic service requests with requesters, assignees, and activity history.
 - [ ] Perform filtering, sorting, and pagination in the database rather than loading the full dataset into the browser.
-- [ ] Add indexes aligned with common query paths.
+- [x] Add indexes aligned with common query paths.
 - [ ] Use Server Components by default.
 - [ ] Limit Client Components to interactive boundaries.
 - [ ] Avoid unnecessary rendering, client JavaScript, and network requests.
@@ -66,11 +66,11 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Advanced JavaScript utility
 
-- [ ] Summarize a large activity dataset per assignee.
-- [ ] Return total assigned, total resolved, and average resolution time.
-- [ ] Handle incomplete and invalid records without throwing.
-- [ ] Use an efficient single-pass or otherwise scale-appropriate algorithm.
-- [ ] Cover valid, invalid, incomplete, and large-input behavior with unit tests.
+- [x] Summarize a large activity dataset per assignee.
+- [x] Return total assigned, total resolved, and average resolution time.
+- [x] Handle incomplete and invalid records without throwing.
+- [x] Use an efficient single-pass or otherwise scale-appropriate algorithm.
+- [x] Cover valid, invalid, incomplete, and large-input behavior with unit tests.
 
 ## Responsive design and accessibility
 

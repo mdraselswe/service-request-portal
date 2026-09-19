@@ -7,4 +7,93 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// The complete indexed domain model is introduced in Phase 2.
+model User {
+  id               String            @id @default(cuid())
+  name             String
+  email            String            @unique
+  passwordHash     String
+  role             String            @default("AGENT")
+  avatarUrl        String?
+  isActive         Boolean           @default(true)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  requestedItems   ServiceRequest[]  @relation("RequestRequester")
+  assignedItems    ServiceRequest[]  @relation("RequestAssignee")
+  authoredActivity RequestActivity[] @relation("ActivityActor")
+  activityAssignee RequestActivity[] @relation("ActivityAssignee")
+  mutationReceipts MutationReceipt[]
+
+  @@index([role, isActive])
+}
+
+model Category {
+  id        String           @id @default(cuid())
+  name      String           @unique
+  slug      String           @unique
+  color     String
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+  requests  ServiceRequest[]
+}
+
+model ServiceRequest {
+  id             String            @id @default(cuid())
+  requestNumber  String            @unique
+  subject        String
+  description    String
+  priority       String
+  status         String
+  requesterId    String
+  assigneeId     String?
+  categoryId     String
+  resolvedAt     DateTime?
+  version        Int               @default(1)
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  requester      User              @relation("RequestRequester", fields: [requesterId], references: [id], onDelete: Restrict)
+  assignee       User?             @relation("RequestAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+  category       Category          @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  activity       RequestActivity[]
+  mutationEvents MutationReceipt[]
+
+  @@index([status, updatedAt])
+  @@index([priority, updatedAt])
+  @@index([categoryId, updatedAt])
+  @@index([assigneeId, updatedAt])
+  @@index([requesterId, updatedAt])
+  @@index([createdAt])
+  @@index([resolvedAt])
+}
+
+model RequestActivity {
+  id           String         @id @default(cuid())
+  requestId    String
+  type         String
+  actorId      String?
+  assigneeId   String?
+  fromValue    String?
+  toValue      String?
+  note         String?
+  metadataJson String?
+  createdAt    DateTime       @default(now())
+  request      ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  actor        User?          @relation("ActivityActor", fields: [actorId], references: [id], onDelete: SetNull)
+  assignee     User?          @relation("ActivityAssignee", fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([requestId, createdAt])
+  @@index([assigneeId, createdAt])
+  @@index([type, createdAt])
+}
+
+model MutationReceipt {
+  id           String         @id
+  requestId    String
+  userId       String
+  responseJson String
+  createdAt    DateTime       @default(now())
+  request      ServiceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  user         User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([requestId, createdAt])
+  @@index([userId, createdAt])
+}

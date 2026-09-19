@@ -95,7 +95,7 @@ Credentials
 - Use generic login errors to avoid account enumeration.
 - Escape output through React and do not render unsanitized HTML.
 
-The initial role model supports `ADMIN` and `AGENT`. Both can view requests; mutation permissions remain centralized so policy can evolve without rewriting UI code.
+The role model supports `ADMIN`, `AGENT`, and non-login `REQUESTER` records. Active administrators and agents can access the portal; requesters represent stakeholders attached to service requests. Mutation permissions remain centralized so policy can evolve without rewriting UI code.
 
 ## 6. Data integrity and concurrency
 

@@ -24,7 +24,7 @@ Verification record: Prisma schema validation/client generation, ESLint, strict 
 
 ## Phase 2 - Data model and realistic seed
 
-Status: planned
+Status: completed and verified on 2026-09-20
 
 - Implement the complete Prisma schema, constraints, relations, and indexes.
 - Add migrations and a deterministic 10,000+ request seed with coherent history.
@@ -32,6 +32,8 @@ Status: planned
 - Implement and test the large activity-summary utility.
 
 Exit criteria: a fresh database can be migrated and seeded from README commands; dataset and summary tests pass.
+
+Verification record: the initial migration deployed successfully; the deterministic seed created 43 users, 8 categories, 10,050 requests, and 35,871 activity records. Seed integrity checks, repository tests, and large-input analytics tests passed.
 
 ## Phase 3 - Authentication and protected shell
 

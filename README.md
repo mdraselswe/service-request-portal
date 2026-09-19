@@ -15,6 +15,9 @@ A production-minded internal service request dashboard for As-Sunnah Foundation,
 yarn install --frozen-lockfile
 copy .env.example .env
 yarn db:generate
+yarn db:deploy
+yarn db:seed
+yarn db:verify
 yarn dev
 ```
 
@@ -22,7 +25,7 @@ On macOS/Linux, use `cp .env.example .env` instead of `copy`.
 
 Open [http://localhost:3000](http://localhost:3000).
 
-The Phase 1 foundation does not yet require a generated SQLite database because the domain schema arrives in Phase 2. The checked-in Prisma configuration validates the local SQLite contract.
+The deterministic seed creates 43 users, 8 categories, 10,050 service requests, and more than 35,000 chronological activity records. Re-running `yarn db:seed` safely replaces the local demo dataset.
 
 ## Verification
 
@@ -53,6 +56,10 @@ yarn test:e2e
 | `yarn test:e2e` | Run selected Playwright tests |
 | `yarn db:generate` | Generate Prisma Client |
 | `yarn db:validate` | Validate the Prisma schema and environment |
+| `yarn db:deploy` | Apply checked-in database migrations |
+| `yarn db:seed` | Recreate the deterministic local demo dataset |
+| `yarn db:verify` | Verify record counts and workflow variety |
+| `yarn db:studio` | Open Prisma Studio for local data inspection |
 
 ## Architecture summary
 
@@ -67,7 +74,7 @@ See `TECH_SPEC.md` for contracts, `ARCHITECTURE.md` for system boundaries and de
 
 ## Test credentials
 
-Credentials are introduced and documented in Phase 3. No authentication account exists in the Phase 1 foundation.
+The seed prepares `admin@assunnah.org` with password `Portal@123`. The login flow becomes available in Phase 3; these credentials are strictly for local assessment use.
 
 ## Repository policy
 
