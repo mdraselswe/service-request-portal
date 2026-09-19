@@ -2,7 +2,7 @@
 
 A production-minded internal service request dashboard for As-Sunnah Foundation, built with Next.js App Router, strict TypeScript, Tailwind CSS, shadcn/ui conventions, Prisma, and SQLite.
 
-> Completed through Phase 4: project foundation, the complete seeded data model, authentication, protected APIs, the responsive portal shell, and the database-backed request dashboard. Request details and resilient mutations are delivered in the subsequent phases described in `IMPLEMENTATION_PLAN.md`.
+> Completed through Phase 5: project foundation, the complete seeded data model, authentication, protected APIs, the responsive portal shell, the database-backed request dashboard, request details, activity history, and resilient optimistic mutations. Phase 6 completes hardening and final delivery review.
 
 ## Prerequisites
 

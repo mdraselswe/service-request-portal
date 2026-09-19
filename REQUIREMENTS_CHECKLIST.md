@@ -33,25 +33,25 @@ Source: `Senior_Frontend_Developer_Assessment.pdf` supplied by the project owner
 
 ## Request details and updates
 
-- [ ] Provide a dynamic request details route using Next.js routing.
-- [ ] Display complete request information and activity/history.
-- [ ] Make direct URL access and browser refresh work.
-- [ ] Allow status updates through authenticated API operations.
-- [ ] Allow assignee updates through authenticated API operations.
-- [ ] Give immediate feedback for mutations.
-- [ ] Prevent duplicate/repeated mutation submissions.
-- [ ] Handle slow responses and failures gracefully.
-- [ ] Use optimistic updates with rollback where appropriate.
+- [x] Provide a dynamic request details route using Next.js routing.
+- [x] Display complete request information and activity/history.
+- [x] Make direct URL access and browser refresh work.
+- [x] Allow status updates through authenticated API operations.
+- [x] Allow assignee updates through authenticated API operations.
+- [x] Give immediate feedback for mutations.
+- [x] Prevent duplicate/repeated mutation submissions.
+- [x] Handle slow responses and failures gracefully.
+- [x] Use optimistic updates with rollback where appropriate.
 
 ## Application states and resilience
 
 - [x] Provide intentional loading states.
 - [x] Provide empty states.
-- [ ] Provide client and server validation feedback.
-- [ ] Provide success feedback.
+- [x] Provide client and server validation feedback.
+- [x] Provide success feedback.
 - [x] Provide recoverable error states.
 - [x] Provide a designed not-found experience.
-- [ ] Use consistent error handling rather than default browser behavior.
+- [x] Use consistent error handling rather than default browser behavior.
 
 ## Data, performance, and scale
 

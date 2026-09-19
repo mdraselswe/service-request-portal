@@ -63,7 +63,7 @@ Verification record: direct filtered URLs, debounced search, repeated status and
 
 ## Phase 5 - Request details and resilient updates
 
-Status: planned
+Status: completed and verified on 2026-09-20
 
 - Build dynamic request details and history with direct access and not-found handling.
 - Implement authenticated transactional status/assignee API updates.
@@ -71,6 +71,8 @@ Status: planned
 - Test latency, failure, repeated actions, stale updates, and direct refresh.
 
 Exit criteria: mutation state stays consistent across success and failure and every change has one activity record.
+
+Verification record: direct request URLs, activity history, status transitions, assignee changes, transactional activity creation, optimistic feedback, rollback, version conflicts, idempotent replay, protected mutation APIs, and designed not-found behavior passed unit, component, and desktop/mobile browser tests.
 
 ## Phase 6 - Hardening and final delivery
 
