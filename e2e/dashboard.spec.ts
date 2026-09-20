@@ -106,9 +106,11 @@ test("uses a content-appropriate result layout at each breakpoint", async ({
   if (viewportWidth < 1024) {
     await expect(table).toBeHidden();
     await expect(visibleCards).toHaveCount(10);
+    await expect(page.getByRole("link", { name: /View details for/ })).toHaveCount(0);
   } else {
     await expect(table).toBeVisible();
     await expect(visibleCards).toHaveCount(0);
+    await expect(page.getByRole("link", { name: /View details for/ })).toHaveCount(10);
   }
 
   const faviconHref = await page.locator('link[rel="icon"]').getAttribute("href");

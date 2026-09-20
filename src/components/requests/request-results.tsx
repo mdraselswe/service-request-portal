@@ -120,6 +120,7 @@ export function RequestResults({
               <th className="px-4 py-3.5 font-semibold" scope="col">Status</th>
               <th className="px-4 py-3.5 font-semibold" scope="col">Assignee</th>
               <th className="px-5 py-3.5 text-right font-semibold" scope="col">Last updated</th>
+              <th className="px-5 py-3.5 text-right font-semibold" scope="col">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-border">
@@ -147,6 +148,17 @@ export function RequestResults({
                 <td className="px-4 py-4 align-top text-muted-foreground">{request.assignee?.name ?? "Unassigned"}</td>
                 <td className="whitespace-nowrap px-5 py-4 text-right align-top text-xs text-muted-foreground">
                   {formatUpdatedAt(request.updatedAt)}
+                </td>
+                <td className="whitespace-nowrap px-5 py-4 text-right align-top">
+                  <Button asChild size="sm" variant="outline">
+                    <Link
+                      aria-label={`View details for ${request.requestNumber}`}
+                      href={`/requests/${request.requestNumber}`}
+                    >
+                      View details
+                      <ArrowRight aria-hidden="true" />
+                    </Link>
+                  </Button>
                 </td>
               </tr>
             ))}
