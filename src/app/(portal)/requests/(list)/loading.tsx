@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function RequestsLoading() {
+export default function RequestsListLoading() {
   return (
     <div aria-busy="true" aria-label="Loading service requests" className="mx-auto w-full max-w-[96rem] pb-20 md:pb-0" role="status">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

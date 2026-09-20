@@ -5,7 +5,7 @@ import { AlertTriangle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-export default function RequestsError({
+export default function RequestsListError({
   error,
   reset,
 }: {

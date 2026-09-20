@@ -24,7 +24,7 @@ type RequestsPageProps = {
   searchParams: Promise<RawSearchParams>;
 };
 
-export default async function RequestsPage({ searchParams }: RequestsPageProps) {
+export default async function RequestsListPage({ searchParams }: RequestsPageProps) {
   const query = parseRequestListQuery(await searchParams);
   const [{ items, total }, options] = await Promise.all([
     listRequests(query),

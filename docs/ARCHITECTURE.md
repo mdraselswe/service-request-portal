@@ -57,6 +57,15 @@ grounds.
 
 `"use client"` is placed at the narrowest interactive leaf, not at page or layout level without a documented need.
 
+### Route-state boundaries
+
+App Router `loading.tsx` and `error.tsx` files apply to their route segment and
+all descendant routes. Page-shaped states therefore live with the page they
+represent. URL-neutral route groups isolate index-page states without changing
+public URLs: `(overview)` owns `/`, `(list)` owns `/requests`, and
+`[requestId]` owns `/requests/:requestId`. Shared parent segments must not
+contain a child-specific skeleton or error message.
+
 ## 4. Request and data flows
 
 ### Dashboard read

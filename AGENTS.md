@@ -41,6 +41,7 @@ to read `AGENTS.md` before starting the task.
 - Keep business rules framework-independent. Hooks and components may orchestrate UI behavior but must not own server-side policy.
 - Prefer clear, direct code over speculative abstractions. Do not add repositories, services, hooks, global state, or factories without a current responsibility they simplify.
 - Preserve the import direction documented in `docs/ARCHITECTURE.md`; do not import route modules from features or server-only modules from Client Components.
+- Treat App Router state files as segment-wide boundaries: `loading.tsx` and `error.tsx` also wrap descendant routes. Put page-specific states in a leaf segment or a URL-neutral private route group such as `(overview)` or `(list)`, never in a shared parent segment.
 - Validate every external boundary and return typed, consistent errors.
 - Build accessible semantic interfaces with keyboard operation and visible focus.
 - Add or update tests with behavioral changes.
