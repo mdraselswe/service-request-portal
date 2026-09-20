@@ -36,7 +36,7 @@ export default async function RequestDetailsPage({ params }: RequestDetailsPageP
       : "secondary";
 
   return (
-    <div className="ui-enter mx-auto max-w-7xl">
+    <div className="ui-enter mx-auto max-w-[96rem]">
       <Link className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-[color,transform] duration-200 hover:-translate-x-0.5 hover:text-foreground" href="/requests">
         <ArrowLeft aria-hidden="true" className="size-4" />
         Back to requests

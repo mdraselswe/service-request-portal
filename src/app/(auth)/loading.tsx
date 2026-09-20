@@ -1,11 +1,11 @@
 import { BrandMark } from "@/components/brand-mark";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Loading() {
+export default function AuthLoading() {
   return (
     <main
       aria-busy="true"
-      aria-label="Loading service portal"
+      aria-label="Loading sign in"
       className="grid min-h-screen bg-background lg:grid-cols-[1.05fr_0.95fr]"
     >
       <section className="relative hidden overflow-hidden bg-foreground p-10 lg:block xl:p-14">
@@ -39,8 +39,14 @@ export default function Loading() {
           <Skeleton className="mt-6 h-9 w-52" />
           <Skeleton className="mt-3 h-5 w-72 max-w-full" />
           <div className="mt-8 space-y-5">
-            <div className="space-y-2"><Skeleton className="h-4 w-24" /><Skeleton className="h-11 w-full" /></div>
-            <div className="space-y-2"><Skeleton className="h-4 w-20" /><Skeleton className="h-11 w-full" /></div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-24" />
+              <Skeleton className="h-11 w-full" />
+            </div>
+            <div className="space-y-2">
+              <Skeleton className="h-4 w-20" />
+              <Skeleton className="h-11 w-full" />
+            </div>
             <Skeleton className="h-11 w-full" />
           </div>
           <Skeleton className="mt-6 h-20 w-full rounded-xl" />
