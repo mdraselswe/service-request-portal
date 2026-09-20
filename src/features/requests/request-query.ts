@@ -12,7 +12,6 @@ export const REQUEST_SORTS = [
   "createdAt",
   "requestNumber",
   "priority",
-  "status",
 ] as const;
 export type RequestSort = (typeof REQUEST_SORTS)[number];
 export type SortOrder = "asc" | "desc";

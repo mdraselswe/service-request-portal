@@ -4,6 +4,13 @@ export type UserRole = (typeof USER_ROLES)[number];
 export const REQUEST_PRIORITIES = ["LOW", "MEDIUM", "HIGH", "URGENT"] as const;
 export type RequestPriority = (typeof REQUEST_PRIORITIES)[number];
 
+export const REQUEST_PRIORITY_RANK = {
+  LOW: 1,
+  MEDIUM: 2,
+  HIGH: 3,
+  URGENT: 4,
+} as const satisfies Record<RequestPriority, number>;
+
 export const REQUEST_STATUSES = [
   "OPEN",
   "IN_PROGRESS",

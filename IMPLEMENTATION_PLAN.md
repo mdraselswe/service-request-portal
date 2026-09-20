@@ -33,7 +33,7 @@ Status: completed and verified on 2026-09-20
 
 Exit criteria: a fresh database can be migrated and seeded from README commands; dataset and summary tests pass.
 
-Verification record: the initial migration deployed successfully; the deterministic seed created 43 users, 8 categories, 10,050 requests, and 35,871 activity records. Seed integrity checks, repository tests, and large-input analytics tests passed.
+Verification record: a nonexistent SQLite database was created automatically and both checked-in migrations deployed successfully; the deterministic seed created 43 users, 8 categories, 10,050 requests, and 37,132 coherent activity records. Seed integrity, workflow consistency, repository, and large-input analytics tests passed.
 
 ## Phase 3 - Authentication and protected shell
 
@@ -72,7 +72,7 @@ Status: completed and verified on 2026-09-20
 
 Exit criteria: mutation state stays consistent across success and failure and every change has one activity record.
 
-Verification record: direct request URLs, activity history, status transitions, assignee changes, transactional activity creation, optimistic feedback, rollback, version conflicts, idempotent replay, protected mutation APIs, and designed not-found behavior passed unit, component, and desktop/mobile browser tests.
+Verification record: direct request URLs, coherent activity history, status transitions, assignee changes, transactional activity creation, optimistic feedback, rollback, stale-version conflicts, idempotent replay, protected mutation APIs, and designed not-found behavior passed unit, component, and desktop/tablet/mobile browser tests.
 
 ## Phase 6 - Hardening and final delivery
 

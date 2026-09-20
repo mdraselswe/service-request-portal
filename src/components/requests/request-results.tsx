@@ -53,7 +53,7 @@ export function RequestResults({
     <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
       <div className="divide-y divide-border md:hidden">
         {items.map((request) => (
-          <article className="p-4" key={request.id}>
+          <article className="p-4" data-priority={request.priority} key={request.id}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <Link
@@ -124,7 +124,11 @@ export function RequestResults({
           </thead>
           <tbody className="divide-y divide-border">
             {items.map((request) => (
-              <tr className="transition-colors hover:bg-muted/30" key={request.id}>
+              <tr
+                className="transition-colors hover:bg-muted/30"
+                data-priority={request.priority}
+                key={request.id}
+              >
                 <td className="max-w-sm px-5 py-4 align-top">
                   <Link className="font-bold text-primary hover:underline" href={`/requests/${request.requestNumber}`}>
                     {request.requestNumber}

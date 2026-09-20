@@ -91,6 +91,41 @@ test("shows a designed not-found state for an unknown request", async ({ page })
   await expect(page.getByRole("link", { name: "Return to requests" })).toBeVisible();
 });
 
+test("rejects a stale version without changing the request", async ({
+  page,
+}, testInfo) => {
+  const requestNumber = requestForProject(testInfo.project.name, {
+    desktop: "SR-10012",
+    tablet: "SR-10013",
+    mobile: "SR-10014",
+  });
+  await page.goto(`/requests/${requestNumber}`);
+
+  const panel = page.getByRole("region", { name: "Manage request" });
+  const version = Number(await panel.getAttribute("data-request-version"));
+  const status = page.getByLabel("Status");
+  const current = await status.inputValue();
+  const options = await status.locator("option").evaluateAll((elements) =>
+    elements.map((element) => (element as HTMLOptionElement).value),
+  );
+  const next = options.find((value) => value !== current);
+  expect(next).toBeTruthy();
+
+  const response = await page.request.patch(`/api/requests/${requestNumber}`, {
+    data: {
+      mutationId: crypto.randomUUID(),
+      version: version + 1,
+      status: next,
+    },
+  });
+
+  expect(response.status()).toBe(409);
+  await expect(response.json()).resolves.toMatchObject({
+    ok: false,
+    error: { code: "VERSION_CONFLICT" },
+  });
+});
+
 test("updates an assignee and safely replays the same mutation", async ({
   page,
 }, testInfo) => {

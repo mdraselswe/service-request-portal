@@ -34,6 +34,7 @@ test("restores filtered, sorted, and paginated state from the URL", async ({
 test("debounces search and preserves a shareable URL", async ({ page }) => {
   await page.goto("/requests");
   const search = page.getByRole("searchbox", { name: "Search requests" });
+  await expect(search).toHaveAttribute("data-hydrated", "true");
   await search.fill("payroll portal");
 
   await expect(page).toHaveURL(/q=payroll\+portal/, { timeout: 10_000 });
@@ -47,4 +48,20 @@ test("debounces search and preserves a shareable URL", async ({ page }) => {
   await page.getByLabel("Filter by assignee").selectOption("unassigned");
   await expect(page).toHaveURL(/assignee=unassigned/);
   await expect(page.getByText(/active filters/)).toBeVisible();
+});
+
+test("sorts priorities in business order", async ({ page }) => {
+  await page.goto("/requests?sort=priority&order=desc&pageSize=10");
+
+  await expect(page.getByRole("heading", { name: "Service requests" })).toBeVisible({
+    timeout: 30_000,
+  });
+  await expect(page.getByLabel("Sort requests")).toHaveValue("priority:desc");
+  const resultItems = page.locator("[data-priority]:visible");
+  await expect(resultItems).toHaveCount(10);
+  const priorities = await resultItems.evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute("data-priority")),
+    );
+  expect(priorities).toHaveLength(10);
+  expect(new Set(priorities)).toEqual(new Set(["URGENT"]));
 });

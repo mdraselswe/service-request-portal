@@ -118,7 +118,7 @@ export default async function RequestDetailsPage({ params }: RequestDetailsPageP
                 ? { id: request.assignee.id, name: request.assignee.name }
                 : null,
             }}
-            key={`${request.id}:${request.version}`}
+            key={request.id}
             requestNumber={request.requestNumber}
           />
         </div>

@@ -1,8 +1,9 @@
-import type {
-  ActivityType,
-  RequestPriority,
-  RequestStatus,
-  UserRole,
+import {
+  REQUEST_PRIORITY_RANK,
+  type ActivityType,
+  type RequestPriority,
+  type RequestStatus,
+  type UserRole,
 } from "../src/features/requests/constants";
 
 export const DEFAULT_SEEDED_REQUEST_COUNT = 10_050;
@@ -29,6 +30,7 @@ export type SeedRequest = {
   subject: string;
   description: string;
   priority: RequestPriority;
+  priorityRank: number;
   status: RequestStatus;
   requesterId: string;
   assigneeId: string | null;
@@ -291,7 +293,7 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
     const priority = choosePriority(random);
     const createdAt = addHours(
       referenceTime,
-      -(random.integer(0, 180) * 24 + random.integer(0, 23)),
+      -(random.integer(14, 180) * 24 + random.integer(0, 23)),
     );
     const shouldAssign = status !== "OPEN" || random.next() > 0.42;
     const assignee = shouldAssign ? random.pick(agents) : null;
@@ -301,6 +303,10 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
     const progressedAt = assignedAt
       ? addHours(assignedAt, random.integer(1, 48))
       : addHours(createdAt, random.integer(1, 48));
+    const waitingAt =
+      status === "WAITING"
+        ? addHours(progressedAt, random.integer(1, 48))
+        : null;
     const resolvedAt =
       status === "RESOLVED" || status === "CLOSED"
         ? addHours(progressedAt, random.integer(4, 144))
@@ -313,15 +319,19 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
       assignedAt ?? createdAt,
       random.integer(1, Math.max(2, resolvedAt ? 24 : 96)),
     );
-    const latestActivity = closedAt ?? resolvedAt ?? progressedAt;
-    const updatedAt = latestActivity > referenceTime ? referenceTime : latestActivity;
+    const latestWorkflowActivity =
+      closedAt ??
+      resolvedAt ??
+      waitingAt ??
+      (status !== "OPEN" ? progressedAt : assignedAt ?? createdAt);
 
-    requests.push({
+    const requestRecord: SeedRequest = {
       id: requestId,
       requestNumber: `SR-${String(10_001 + index).padStart(5, "0")}`,
       subject: random.pick(SUBJECTS[category.id] ?? SUBJECTS.cat_general!),
       description: random.pick(DESCRIPTIONS),
       priority,
+      priorityRank: REQUEST_PRIORITY_RANK[priority],
       status,
       requesterId: requester.id,
       assigneeId: assignee?.id ?? null,
@@ -329,8 +339,9 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
       resolvedAt,
       version: status === "OPEN" ? 1 : random.integer(2, 5),
       createdAt,
-      updatedAt,
-    });
+      updatedAt: latestWorkflowActivity,
+    };
+    requests.push(requestRecord);
 
     addActivity({
       requestId,
@@ -359,17 +370,30 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
     }
 
     if (status !== "OPEN") {
-      const initialStatus = status === "WAITING" ? "IN_PROGRESS" : status;
       addActivity({
         requestId,
         type: "STATUS_CHANGED",
         actorId: assignee?.id ?? "usr_admin_001",
         assigneeId: assignee?.id ?? null,
         fromValue: "OPEN",
-        toValue: initialStatus,
-        note: `Status changed from Open to ${initialStatus.toLowerCase().replaceAll("_", " ")}.`,
+        toValue: "IN_PROGRESS",
+        note: "Status changed from open to in progress.",
         metadataJson: null,
         createdAt: progressedAt,
+      });
+    }
+
+    if (status === "WAITING" && waitingAt) {
+      addActivity({
+        requestId,
+        type: "STATUS_CHANGED",
+        actorId: assignee?.id ?? "usr_admin_001",
+        assigneeId: assignee?.id ?? null,
+        fromValue: "IN_PROGRESS",
+        toValue: "WAITING",
+        note: "Status changed from in progress to waiting.",
+        metadataJson: null,
+        createdAt: waitingAt,
       });
     }
 
@@ -385,6 +409,9 @@ export function buildSeedDataset(count: number, seed = 20_260_920) {
         metadataJson: null,
         createdAt: commentAt,
       });
+      if (commentAt > requestRecord.updatedAt) {
+        requestRecord.updatedAt = commentAt;
+      }
     }
 
     if (resolvedAt && assignee) {

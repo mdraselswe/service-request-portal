@@ -101,7 +101,7 @@ The deterministic seed creates at least 10,000 varied requests, multiple users a
 - Search input updates the URL after a short debounce and skips no-op navigations.
 - Expensive client components and broad context providers are avoided.
 - Tables/cards use stable keys and Server Component rendering.
-- Activity summary processing is O(n) time with O(a) memory, where `a` is distinct assignees.
+- Activity summary processing is O(n) time with O(r + a) memory, where `r` is the number of distinct assignee/request timelines and `a` is the number of distinct assignees.
 - Production build output and client boundaries are reviewed before final delivery.
 
 ## 7. Accessibility and responsive behavior

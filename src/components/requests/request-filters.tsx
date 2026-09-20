@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  useTransition,
+} from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FilterX, Search, SlidersHorizontal } from "lucide-react";
 
@@ -23,6 +29,8 @@ const labels: Record<string, string> = {
   HIGH: "High",
   URGENT: "Urgent",
 };
+
+const subscribeToHydration = () => () => undefined;
 
 export function RequestFilters({
   query,
@@ -213,6 +221,11 @@ function SearchField({
 }) {
   const [value, setValue] = useState(initialValue);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hydrated = useSyncExternalStore(
+    subscribeToHydration,
+    () => true,
+    () => false,
+  );
 
   useEffect(
     () => () => {
@@ -230,6 +243,7 @@ function SearchField({
       <Input
         aria-label="Search requests"
         className="pl-10"
+        data-hydrated={hydrated}
         onChange={(event) => {
           const next = event.target.value;
           setValue(next);
@@ -237,6 +251,7 @@ function SearchField({
           timer.current = setTimeout(() => onCommit(next.trim()), 350);
         }}
         placeholder="Search by ID, subject, requester, or email..."
+        readOnly={!hydrated}
         type="search"
         value={value}
       />

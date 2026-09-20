@@ -42,6 +42,7 @@ model ServiceRequest {
   subject        String
   description    String
   priority       String
+  priorityRank   Int               @default(2)
   status         String
   requesterId    String
   assigneeId     String?
@@ -58,6 +59,7 @@ model ServiceRequest {
 
   @@index([status, updatedAt])
   @@index([priority, updatedAt])
+  @@index([priorityRank, updatedAt])
   @@index([categoryId, updatedAt])
   @@index([assigneeId, updatedAt])
   @@index([requesterId, updatedAt])

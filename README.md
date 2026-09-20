@@ -25,7 +25,7 @@ On macOS/Linux, use `cp .env.example .env` instead of `copy`.
 
 Open [http://localhost:3000](http://localhost:3000).
 
-The deterministic seed creates 43 users, 8 categories, 10,050 service requests, and more than 35,000 chronological activity records. Re-running `yarn db:seed` safely replaces the local demo dataset.
+The deterministic seed creates 43 users, 8 categories, 10,050 service requests, and more than 37,000 chronological activity records. Re-running `yarn db:seed` safely replaces the local demo dataset. `yarn db:deploy` creates the SQLite file when needed before applying checked-in migrations.
 
 ## Verification
 
@@ -56,7 +56,7 @@ yarn test:e2e
 | `yarn test:e2e` | Run selected Playwright tests |
 | `yarn db:generate` | Generate Prisma Client |
 | `yarn db:validate` | Validate the Prisma schema and environment |
-| `yarn db:deploy` | Apply checked-in database migrations |
+| `yarn db:deploy` | Create the local SQLite file when needed and apply checked-in migrations |
 | `yarn db:seed` | Recreate the deterministic local demo dataset |
 | `yarn db:verify` | Verify record counts and workflow variety |
 | `yarn db:studio` | Open Prisma Studio for local data inspection |
@@ -79,7 +79,7 @@ See `TECH_SPEC.md` for contracts, `ARCHITECTURE.md` for system boundaries and de
 - Responsive desktop table and compact mobile presentation.
 - Request details with chronological activity and direct-link support.
 - Optimistic status and assignee updates with rollback, version conflict handling, and idempotent retries.
-- Deterministic realistic data: 43 users, 8 categories, 10,050 requests, and 35,871 activity records.
+- Deterministic realistic data: 43 users, 8 categories, 10,050 requests, and 37,132 activity records.
 - Intentional loading, empty, validation, error, not-found, and success states.
 
 ## URL query parameters
@@ -92,7 +92,7 @@ The `/requests` route accepts `q`, repeated `status` and `priority` values, `cat
 - Inputs are validated with Zod. Prisma is server-only and queries return narrow projections.
 - Mutations write request changes, activity, and idempotency receipts transactionally.
 - Security response headers deny framing, disable MIME sniffing, restrict browser permissions, and apply a same-origin referrer policy.
-- Protected mutable reads are dynamic and use `no-store`; they are never placed in a shared public cache.
+- Protected page reads are dynamic because they depend on the authenticated request; API responses explicitly use `no-store` and no protected data enters a shared public cache.
 
 ## Testing strategy
 
@@ -100,7 +100,7 @@ Vitest covers domain logic, validation, authentication, database queries, the la
 
 ## Troubleshooting
 
-- If Prisma reports a missing database, run `yarn db:deploy`, `yarn db:seed`, and `yarn db:verify`.
+- If the database is missing or stale, run `yarn db:deploy`, `yarn db:seed`, and `yarn db:verify`.
 - If Prisma Client is stale after a schema change, run `yarn db:generate`.
 - If Playwright cannot find Chromium, run `yarn playwright install chromium`.
 - If port 3000 is already in use, stop the existing local server before running the end-to-end suite.

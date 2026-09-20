@@ -113,7 +113,7 @@ The role model supports `ADMIN`, `AGENT`, and non-login `REQUESTER` records. Act
 
 - Pure unit tests cover query normalization and the activity summary algorithm.
 - React Testing Library covers accessible interactive components and rollback behavior.
-- Route/domain tests cover authentication, validation, filtering, and transactional commands with an isolated database where appropriate.
+- Route and domain tests cover authentication, validation, filtering, concurrency conflicts, and transactional mutation behavior through the authenticated HTTP boundary.
 - Playwright covers login, protected redirect, dashboard URL state, details direct access, successful/failed updates, responsive overflow, and WCAG A/AA scans at desktop, tablet, and mobile widths.
 - Test helpers generate explicit data and avoid dependence on the large development seed.
 
@@ -145,7 +145,7 @@ Accepted for a simple local assessment flow. JOSE signs and verifies the expirin
 
 ### ADR-006: Dynamic protected reads
 
-Accepted. Protected mutable pages and API responses are dynamic and use `no-store`, preventing user-specific request data from entering a shared public cache. Mutation success refreshes the affected Server Component tree.
+Accepted. Protected pages render dynamically because their layout reads the authenticated request. API responses explicitly use `no-store`, preventing user-specific request data from entering a shared public cache. Mutation success refreshes the affected Server Component tree.
 
 ### ADR-005: Offset pagination
 

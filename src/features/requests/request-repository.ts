@@ -45,6 +45,9 @@ function buildWhere(query: RequestListQuery): Prisma.ServiceRequestWhereInput {
 }
 
 function buildOrderBy(query: RequestListQuery): Prisma.ServiceRequestOrderByWithRelationInput[] {
+  if (query.sort === "priority") {
+    return [{ priorityRank: query.order }, { id: "asc" }];
+  }
   return [{ [query.sort]: query.order }, { id: "asc" }];
 }
 
