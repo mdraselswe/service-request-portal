@@ -20,8 +20,17 @@ test("restores filtered, sorted, and paginated state from the URL", async ({
   );
 
   await expect(page.getByRole("heading", { name: "Service requests" })).toBeVisible();
+  const mobileFilters = (page.viewportSize()?.width ?? 1280) < 768;
+  if (mobileFilters) {
+    await page.getByRole("button", { name: /Filters/ }).click();
+    await expect(page.getByRole("dialog", { name: "Filter requests" })).toBeVisible();
+  }
   await expect(page.getByRole("button", { name: "Open", pressed: true })).toBeVisible();
   await expect(page.getByRole("button", { name: "Urgent", pressed: true })).toBeVisible();
+  if (mobileFilters) {
+    await page.getByRole("button", { name: "View results" }).click();
+    await expect(page.getByRole("dialog", { name: "Filter requests" })).toBeHidden();
+  }
   await expect(page.getByLabel("Rows")).toHaveValue("10");
   await expect(page.getByLabel("Sort requests")).toHaveValue("requestNumber:asc");
   await expect(page.getByText(/Page 2 of/)).toBeVisible();
@@ -33,6 +42,7 @@ test("restores filtered, sorted, and paginated state from the URL", async ({
 
 test("debounces search and preserves a shareable URL", async ({ page }) => {
   await page.goto("/requests");
+  const mobileFilters = (page.viewportSize()?.width ?? 1280) < 768;
   const search = page.getByRole("searchbox", { name: "Search requests" });
   await expect(search).toHaveAttribute("data-hydrated", "true");
   await search.fill("payroll portal");
@@ -45,9 +55,26 @@ test("debounces search and preserves a shareable URL", async ({ page }) => {
       .first(),
   ).toBeVisible();
 
-  await page.getByLabel("Filter by assignee").selectOption("unassigned");
+  if (mobileFilters) {
+    await page.getByRole("button", { name: /Filters/ }).click();
+    await page
+      .getByRole("dialog", { name: "Filter requests" })
+      .getByLabel("Assignee", { exact: true })
+      .selectOption("unassigned");
+  } else {
+    await page.getByLabel("Filter by assignee").selectOption("unassigned");
+  }
   await expect(page).toHaveURL(/assignee=unassigned/);
-  await expect(page.getByText(/active filters/)).toBeVisible();
+  const activeFilterSummary = mobileFilters
+    ? page.getByRole("dialog", { name: "Filter requests" }).getByText(/1 active filter/)
+    : page.getByRole("region", { name: "Request search and filters" }).getByText(/1 active filter/);
+  await expect(activeFilterSummary).toBeVisible();
+
+  if (mobileFilters) {
+    await page.getByRole("button", { name: "View results" }).click();
+    await expect(page.getByRole("dialog", { name: "Filter requests" })).toBeHidden();
+    await expect(page.getByRole("button", { name: /Filters 1/ })).toBeVisible();
+  }
 });
 
 test("sorts priorities in business order", async ({ page }) => {

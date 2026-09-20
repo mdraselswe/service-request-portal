@@ -47,7 +47,7 @@ export default async function RequestsPage({ searchParams }: RequestsPageProps) 
   );
 
   return (
-    <div className="ui-enter mx-auto max-w-[96rem]">
+    <div className="ui-enter mx-auto max-w-[96rem] pb-20 md:pb-0">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-primary">Request management</p>
