@@ -166,7 +166,7 @@ function FilterChipGroup({
             <button
               aria-pressed={selected}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                "whitespace-nowrap rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 selected && tone === "primary" && "border-primary bg-primary text-primary-foreground",
                 selected && tone === "dark" && "border-foreground bg-foreground text-background",
                 !selected && "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",

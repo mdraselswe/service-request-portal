@@ -86,7 +86,7 @@ export function RequestFilters({
         aria-label="Search service requests"
         aria-busy={isPending}
         className={cn(
-          "rounded-2xl border border-border bg-background/95 p-3 shadow-sm transition-opacity md:hidden",
+          "rounded-2xl border border-border bg-background/90 p-3 shadow-md backdrop-blur-xl transition-opacity md:hidden",
           isPending && "opacity-70",
         )}
       >
@@ -97,7 +97,7 @@ export function RequestFilters({
         aria-label="Request search and filters"
         aria-busy={isPending}
         className={cn(
-          "hidden rounded-2xl border border-border bg-background/95 p-4 shadow-sm transition-[opacity,box-shadow,border-color] duration-200 md:block sm:p-5",
+          "hidden rounded-2xl border border-border bg-background/95 p-4 shadow-sm backdrop-blur-xl transition-[opacity,box-shadow,border-color] duration-200 md:block sm:p-5",
           isPending && "opacity-70",
         )}
       >

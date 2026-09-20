@@ -117,6 +117,30 @@ test("uses a content-appropriate result layout at each breakpoint", async ({
     await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
   ).toBe(true);
 
+  expect(
+    await page
+      .locator('[data-slot="badge"]:visible')
+      .evaluateAll((badges) =>
+        badges.every((badge) => getComputedStyle(badge).whiteSpace === "nowrap"),
+      ),
+  ).toBe(true);
+
+  await page.evaluate(() => window.scrollTo(0, 800));
+  await page.waitForTimeout(200);
+  if (viewportWidth < 768) {
+    const searchBox = await page
+      .getByRole("searchbox", { name: "Search requests" })
+      .boundingBox();
+    expect(searchBox?.y).toBeGreaterThanOrEqual(80);
+    expect(searchBox?.y).toBeLessThan(120);
+  } else if (viewportWidth >= 1280) {
+    const filterPanel = await page
+      .getByRole("region", { name: "Request search and filters" })
+      .boundingBox();
+    expect(filterPanel?.y).toBeGreaterThanOrEqual(90);
+    expect(filterPanel?.y).toBeLessThan(110);
+  }
+
   await page.getByRole("link", { name: "Last page" }).click();
   await expect(page).toHaveURL(/page=1005/);
   await expect(page.getByText("Page 1005 of 1005")).toBeVisible();
