@@ -50,7 +50,7 @@ export function RequestResults({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-background/95 shadow-sm">
+    <div className="overflow-clip rounded-2xl border border-border bg-background/95 shadow-sm">
       <div className="divide-y divide-border lg:hidden">
         {items.map((request) => (
           <article className="group p-4 transition-colors duration-200 hover:bg-muted/35" data-priority={request.priority} key={request.id}>
@@ -108,10 +108,10 @@ export function RequestResults({
         ))}
       </div>
 
-      <div className="hidden overflow-x-auto lg:block">
+      <div className="hidden overflow-x-auto lg:block xl:overflow-visible">
         <table className="w-full min-w-[68rem] border-collapse text-left text-sm">
           <caption className="sr-only">Service requests matching the current query</caption>
-          <thead className="border-b border-border bg-muted/45 text-xs uppercase tracking-wider text-muted-foreground">
+          <thead className="border-b border-border bg-muted/95 text-xs uppercase tracking-wider text-muted-foreground backdrop-blur-xl xl:sticky xl:top-18 xl:z-10 xl:shadow-[0_8px_18px_-16px_rgba(15,23,42,0.55)]">
             <tr>
               <th className="px-5 py-3.5 font-semibold" scope="col">Request</th>
               <th className="px-4 py-3.5 font-semibold" scope="col">Requester</th>

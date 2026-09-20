@@ -69,7 +69,7 @@ export default async function RequestsPage({ searchParams }: RequestsPageProps) 
         </div>
       </div>
 
-      <div className="sticky top-20 z-10 mt-7 md:static xl:sticky xl:top-24 xl:z-10">
+      <div className="sticky top-20 z-10 mt-7 md:static">
         <RequestFilters query={query} {...options} />
       </div>
 

@@ -137,8 +137,10 @@ test("uses a content-appropriate result layout at each breakpoint", async ({
     const filterPanel = await page
       .getByRole("region", { name: "Request search and filters" })
       .boundingBox();
-    expect(filterPanel?.y).toBeGreaterThanOrEqual(90);
-    expect(filterPanel?.y).toBeLessThan(110);
+    const tableHeader = await page.locator("thead").boundingBox();
+    expect(filterPanel?.y).toBeLessThan(0);
+    expect(tableHeader?.y).toBeGreaterThanOrEqual(70);
+    expect(tableHeader?.y).toBeLessThan(80);
   }
 
   await page.getByRole("link", { name: "Last page" }).click();
