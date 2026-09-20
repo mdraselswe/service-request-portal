@@ -66,7 +66,7 @@ export function RequestFilters({
       aria-label="Request search and filters"
       aria-busy={isPending}
       className={cn(
-        "rounded-2xl border border-border bg-background p-4 shadow-sm transition-opacity sm:p-5",
+        "rounded-2xl border border-border bg-background/95 p-4 shadow-sm transition-[opacity,box-shadow,border-color] duration-200 sm:p-5",
         isPending && "opacity-70",
       )}
     >
@@ -141,7 +141,7 @@ export function RequestFilters({
               <button
                 aria-pressed={query.statuses.includes(status)}
                 className={cn(
-                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   query.statuses.includes(status)
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",
@@ -163,7 +163,7 @@ export function RequestFilters({
               <button
                 aria-pressed={query.priorities.includes(priority)}
                 className={cn(
-                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                  "rounded-full border px-3 py-1.5 text-xs font-semibold transition-[color,background-color,border-color,transform] duration-200 hover:-translate-y-0.5 active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                   query.priorities.includes(priority)
                     ? "border-foreground bg-foreground text-background"
                     : "border-border bg-background text-muted-foreground hover:bg-muted hover:text-foreground",

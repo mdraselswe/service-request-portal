@@ -35,18 +35,18 @@ function activityTitle(activity: Activity) {
 
 export function RequestActivityTimeline({ activity }: { activity: Activity[] }) {
   return (
-    <section aria-labelledby="activity-heading" className="rounded-2xl border border-border bg-background p-5 shadow-sm sm:p-6">
+    <section aria-labelledby="activity-heading" className="rounded-2xl border border-border bg-background/95 p-5 shadow-sm sm:p-6">
       <div>
         <h2 className="text-lg font-bold" id="activity-heading">Activity history</h2>
         <p className="mt-1 text-sm text-muted-foreground">A chronological record of ownership and workflow changes.</p>
       </div>
       <ol className="mt-6 space-y-0">
         {activity.map((item, index) => (
-          <li className="relative grid grid-cols-[2.5rem_1fr] gap-3 pb-6 last:pb-0" key={item.id}>
+          <li className="group relative grid grid-cols-[2.5rem_1fr] gap-3 pb-6 last:pb-0" key={item.id}>
             {index < activity.length - 1 ? (
               <span aria-hidden="true" className="absolute bottom-0 left-5 top-10 w-px bg-border" />
             ) : null}
-            <span className="z-10 grid size-10 place-items-center rounded-xl border border-border bg-muted text-primary">
+            <span className="z-10 grid size-10 place-items-center rounded-xl border border-border bg-muted text-primary transition-[border-color,background-color,transform] duration-200 group-hover:scale-105 group-hover:border-primary/25 group-hover:bg-primary/10">
               <ActivityIcon type={item.type} />
             </span>
             <div className="pt-0.5">

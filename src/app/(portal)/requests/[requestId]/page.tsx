@@ -36,8 +36,8 @@ export default async function RequestDetailsPage({ params }: RequestDetailsPageP
       : "secondary";
 
   return (
-    <div className="mx-auto max-w-7xl">
-      <Link className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-foreground" href="/requests">
+    <div className="ui-enter mx-auto max-w-7xl">
+      <Link className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-[color,transform] duration-200 hover:-translate-x-0.5 hover:text-foreground" href="/requests">
         <ArrowLeft aria-hidden="true" className="size-4" />
         Back to requests
       </Link>
@@ -61,7 +61,7 @@ export default async function RequestDetailsPage({ params }: RequestDetailsPageP
 
       <div className="mt-7 grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <div className="space-y-6">
-          <Card className="bg-background">
+          <Card className="bg-background/95">
             <CardHeader className="border-b border-border">
               <CardTitle>Request information</CardTitle>
             </CardHeader>

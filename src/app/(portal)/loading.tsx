@@ -6,6 +6,7 @@ export default function OverviewLoading() {
       aria-busy="true"
       aria-label="Loading overview"
       className="mx-auto max-w-[96rem]"
+      role="status"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-3">

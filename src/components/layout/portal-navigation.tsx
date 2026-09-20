@@ -21,8 +21,8 @@ export function PortalNavigation() {
             aria-current={active ? "page" : undefined}
             className={
               active
-                ? "flex h-10 items-center gap-3 rounded-lg bg-primary/10 px-3 text-sm font-semibold text-primary"
-                : "flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                ? "relative flex h-10 items-center gap-3 rounded-lg bg-primary/10 px-3 text-sm font-semibold text-primary shadow-[inset_3px_0_0_var(--primary)]"
+                : "flex h-10 items-center gap-3 rounded-lg px-3 text-sm font-medium text-muted-foreground transition-[color,background-color,transform] duration-200 hover:translate-x-0.5 hover:bg-muted hover:text-foreground"
             }
             href={href}
             key={href}

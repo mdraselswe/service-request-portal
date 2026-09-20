@@ -73,6 +73,75 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+::selection {
+  background: color-mix(in oklab, var(--primary) 24%, transparent);
+}
+
+.portal-canvas {
+  background:
+    radial-gradient(circle at 84% 0%, color-mix(in oklab, var(--primary) 7%, transparent), transparent 28rem),
+    linear-gradient(to bottom, color-mix(in oklab, var(--background) 55%, transparent), transparent 22rem),
+    var(--muted);
+}
+
+.ui-enter {
+  animation: ui-enter 480ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ui-card-lift {
+  transition:
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.ui-card-lift:hover {
+  border-color: color-mix(in oklab, var(--primary) 24%, var(--border));
+  box-shadow: 0 18px 34px -24px color-mix(in oklab, var(--foreground) 32%, transparent);
+  transform: translateY(-2px);
+}
+
+.menu-surface {
+  transform-origin: top;
+}
+
+details[open] > .menu-surface {
+  animation: menu-in 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.menu-chevron {
+  transition: transform 180ms ease;
+}
+
+details[open] > summary .menu-chevron {
+  transform: rotate(180deg);
+}
+
+.illustration-float {
+  animation: illustration-float 6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.illustration-orbit {
+  animation: illustration-orbit 4.8s ease-in-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.illustration-orbit-delayed {
+  animation-delay: -2.4s;
+}
+
+.illustration-card {
+  animation: illustration-card 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.illustration-card-two {
+  animation-delay: -2.5s;
+}
+
 .select-control {
   appearance: none;
   padding-right: 2.5rem;
@@ -80,6 +149,14 @@ a {
   background-position: right 0.75rem center;
   background-repeat: no-repeat;
   background-size: 1rem;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.select-control:hover:not(:disabled) {
+  border-color: color-mix(in oklab, var(--primary) 36%, var(--border));
 }
 
 .select-control[data-loading="true"] {
@@ -116,6 +193,58 @@ a {
 @keyframes skeleton-shimmer {
   100% {
     transform: translateX(100%);
+  }
+}
+
+@keyframes ui-enter {
+  from {
+    transform: translateY(8px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes illustration-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes illustration-orbit {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(2deg);
+  }
+}
+
+@keyframes illustration-card {
+  0%,
+  100% {
+    opacity: 0.84;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(3px);
   }
 }
 

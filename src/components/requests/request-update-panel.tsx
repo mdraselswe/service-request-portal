@@ -90,7 +90,7 @@ export function RequestUpdatePanel({
   return (
     <section
       aria-labelledby="update-heading"
-      className="rounded-2xl border border-border bg-background p-5 shadow-sm"
+      className="ui-card-lift rounded-2xl border border-border bg-background/95 p-5 shadow-sm"
       data-request-version={request.version}
     >
       <div className="flex items-center gap-3">
@@ -161,7 +161,7 @@ export function RequestUpdatePanel({
 
       <div aria-live="polite" className="mt-4 min-h-5 text-sm">
         {feedback ? (
-          <p className={feedback.kind === "success" ? "flex items-center gap-2 text-emerald-700" : "text-destructive"}>
+          <p className={feedback.kind === "success" ? "ui-enter flex items-center gap-2 text-emerald-700" : "ui-enter text-destructive"}>
             {feedback.kind === "success" ? <CheckCircle2 aria-hidden="true" className="size-4" /> : null}
             {feedback.message}
           </p>

@@ -47,7 +47,7 @@ export default async function RequestsPage({ searchParams }: RequestsPageProps) 
   );
 
   return (
-    <div className="mx-auto max-w-[96rem]">
+    <div className="ui-enter mx-auto max-w-[96rem]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-primary">Request management</p>
@@ -58,7 +58,7 @@ export default async function RequestsPage({ searchParams }: RequestsPageProps) 
             Review workload, ownership, status, and priority across the organization.
           </p>
         </div>
-        <div className="flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 shadow-sm">
+        <div className="ui-card-lift flex items-center gap-3 rounded-xl border border-border bg-background/95 px-4 py-3 shadow-sm">
           <span className="grid size-9 place-items-center rounded-lg bg-primary/10 text-primary">
             <Inbox aria-hidden="true" className="size-4.5" />
           </span>

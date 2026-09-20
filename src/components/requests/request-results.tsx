@@ -26,10 +26,10 @@ export function RequestResults({
 }) {
   if (!items.length) {
     return (
-      <div className="grid min-h-80 place-items-center rounded-2xl border border-dashed border-border bg-background px-5 text-center">
+      <div className="ui-enter grid min-h-80 place-items-center overflow-hidden rounded-2xl border border-dashed border-border bg-background/95 px-5 text-center">
         <div className="max-w-md py-12">
-          <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-muted text-muted-foreground">
-            <Inbox aria-hidden="true" className="size-6" />
+          <span className="relative mx-auto grid size-16 place-items-center rounded-2xl bg-primary/10 text-primary before:absolute before:-inset-3 before:rounded-[1.25rem] before:border before:border-primary/10">
+            <Inbox aria-hidden="true" className="size-7" />
           </span>
           <h2 className="mt-4 text-lg font-bold">
             {filtered ? "No requests match these filters" : "No requests yet"}
@@ -50,10 +50,10 @@ export function RequestResults({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
+    <div className="overflow-hidden rounded-2xl border border-border bg-background/95 shadow-sm">
       <div className="divide-y divide-border lg:hidden">
         {items.map((request) => (
-          <article className="p-4" data-priority={request.priority} key={request.id}>
+          <article className="group p-4 transition-colors duration-200 hover:bg-muted/35" data-priority={request.priority} key={request.id}>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <Link
@@ -98,7 +98,7 @@ export function RequestResults({
               </p>
               <Link
                 aria-label={`Open ${request.requestNumber}`}
-                className="text-primary"
+                className="grid size-8 place-items-center rounded-full bg-primary/10 text-primary transition-[background-color,transform] duration-200 group-hover:translate-x-0.5 group-hover:bg-primary group-hover:text-primary-foreground"
                 href={`/requests/${request.requestNumber}`}
               >
                 <ArrowRight aria-hidden="true" className="size-4" />
@@ -125,7 +125,7 @@ export function RequestResults({
           <tbody className="divide-y divide-border">
             {items.map((request) => (
               <tr
-                className="transition-colors hover:bg-muted/30"
+                className="transition-[background-color,box-shadow] duration-200 hover:bg-muted/35 hover:shadow-[inset_3px_0_0_var(--primary)]"
                 data-priority={request.priority}
                 key={request.id}
               >

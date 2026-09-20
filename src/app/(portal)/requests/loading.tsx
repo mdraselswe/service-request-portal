@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function RequestsLoading() {
   return (
-    <div aria-busy="true" aria-label="Loading service requests" className="mx-auto max-w-[96rem]">
+    <div aria-busy="true" aria-label="Loading service requests" className="mx-auto max-w-[96rem]" role="status">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="space-y-3">
           <Skeleton className="h-4 w-36" />

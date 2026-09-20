@@ -4,6 +4,7 @@ import { CheckCircle2, ShieldCheck } from "lucide-react";
 
 import { BrandMark } from "@/components/brand-mark";
 import { LoginForm } from "@/components/auth/login-form";
+import { OperationsIllustration } from "@/components/illustrations/operations-illustration";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentUser } from "@/features/auth/session";
 import { safeReturnPath } from "@/features/auth/safe-return-path";
@@ -43,7 +44,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
           </div>
         </div>
 
-        <div className="relative max-w-xl">
+        <div className="relative max-w-xl ui-enter">
           <Badge className="mb-6 border-white/15 bg-white/10 text-white">
             Internal operations workspace
           </Badge>
@@ -66,6 +67,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-8 hidden max-w-lg xl:block">
+            <OperationsIllustration />
+          </div>
         </div>
 
         <p className="relative text-xs text-white/45">
@@ -74,7 +78,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       </section>
 
       <section className="flex min-h-screen items-center justify-center px-4 py-10 sm:px-8">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md ui-enter">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
               <BrandMark />

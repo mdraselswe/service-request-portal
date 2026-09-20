@@ -26,7 +26,7 @@ export function PortalShell({
     .toUpperCase();
 
   return (
-    <div className="min-h-screen bg-muted/35">
+    <div className="portal-canvas min-h-screen">
       <a
         href="#main-content"
         className="sr-only z-50 rounded-md bg-background px-3 py-2 text-sm font-semibold focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
@@ -34,7 +34,7 @@ export function PortalShell({
         Skip to main content
       </a>
 
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-border bg-background lg:flex lg:flex-col">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-border/80 bg-background/95 shadow-[8px_0_30px_-28px_rgba(15,23,42,0.45)] backdrop-blur lg:flex lg:flex-col">
         <div className="flex h-18 items-center gap-3 border-b border-border px-5">
           <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
             <BrandMark />
@@ -53,13 +53,13 @@ export function PortalShell({
       </aside>
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-20 flex h-18 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-20 flex h-18 items-center justify-between border-b border-border/80 bg-background/90 px-4 shadow-[0_8px_24px_-24px_rgba(15,23,42,0.65)] backdrop-blur-xl sm:px-6 lg:px-8">
           <details className="group relative lg:hidden">
             <summary className="grid size-10 cursor-pointer list-none place-items-center rounded-lg border border-border bg-background text-foreground shadow-sm [&::-webkit-details-marker]:hidden">
               <Menu aria-hidden="true" className="size-5" />
               <span className="sr-only">Open navigation</span>
             </summary>
-            <div className="absolute left-0 top-12 w-64 rounded-xl border border-border bg-background p-3 shadow-xl">
+            <div className="menu-surface absolute left-0 top-12 w-64 rounded-xl border border-border bg-background/98 p-3 shadow-2xl shadow-foreground/10 backdrop-blur-xl">
               <PortalNavigation />
             </div>
           </details>
@@ -82,9 +82,9 @@ export function PortalShell({
                   {user.role.toLowerCase()}
                 </span>
               </span>
-              <ChevronDown aria-hidden="true" className="hidden size-4 text-muted-foreground sm:block" />
+              <ChevronDown aria-hidden="true" className="menu-chevron hidden size-4 text-muted-foreground sm:block" />
             </summary>
-            <div className="absolute right-0 top-12 w-64 rounded-xl border border-border bg-background p-2 shadow-xl">
+            <div className="menu-surface absolute right-0 top-12 w-64 origin-top-right rounded-xl border border-border bg-background/98 p-2 shadow-2xl shadow-foreground/10 backdrop-blur-xl">
               <div className="border-b border-border px-3 py-2.5">
                 <p className="truncate text-sm font-semibold">{user.name}</p>
                 <p className="truncate text-xs text-muted-foreground">{user.email}</p>
