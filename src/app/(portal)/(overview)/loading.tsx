@@ -1,11 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function OverviewLoading() {
+export default function OverviewRouteLoading() {
   return (
     <div
       aria-busy="true"
       aria-label="Loading overview"
-      className="mx-auto max-w-[96rem]"
+      className="mx-auto w-full max-w-[96rem]"
       role="status"
     >
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">

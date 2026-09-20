@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Overview",
 };
 
-export default async function OverviewPage() {
+export default async function OverviewRoute() {
   const { counts, recentRequests } = await getOverviewData();
 
   const stats = [
@@ -21,7 +21,7 @@ export default async function OverviewPage() {
   ] as const;
 
   return (
-    <div className="ui-enter mx-auto max-w-[96rem]">
+    <div className="mx-auto w-full max-w-[96rem]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-primary">Operations overview</p>
