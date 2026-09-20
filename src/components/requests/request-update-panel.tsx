@@ -6,6 +6,7 @@ import { CheckCircle2, LoaderCircle, UserRoundCog } from "lucide-react";
 
 import { Label } from "@/components/ui/label";
 import type { RequestStatus } from "@/features/requests/constants";
+import type { RequestMutationResponse } from "@/features/requests/request-contracts";
 import { selectableStatuses } from "@/features/requests/request-transitions";
 
 type Assignee = { id: string; name: string; email: string };
@@ -22,19 +23,6 @@ const statusLabels: Record<RequestStatus, string> = {
   RESOLVED: "Resolved",
   CLOSED: "Closed",
 };
-
-type ApiResponse =
-  | {
-      ok: true;
-      data: {
-        request: {
-          status: RequestStatus;
-          version: number;
-          assignee: { id: string; name: string } | null;
-        };
-      };
-    }
-  | { ok: false; error: { code: string; message: string } };
 
 export function RequestUpdatePanel({
   requestNumber,
@@ -73,7 +61,7 @@ export function RequestUpdatePanel({
           ...update,
         }),
       });
-      const payload = (await response.json()) as ApiResponse;
+      const payload = (await response.json()) as RequestMutationResponse;
       if (!response.ok || !payload.ok) {
         throw new Error(payload.ok ? "The update failed." : payload.error.message);
       }
@@ -121,7 +109,8 @@ export function RequestUpdatePanel({
           <div className="relative">
             <select
               id="request-status"
-              className="h-11 w-full rounded-lg border border-input bg-background px-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:opacity-60"
+              className="select-control h-11 w-full rounded-lg border border-input bg-background pl-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:opacity-60"
+              data-loading={pending === "status"}
               disabled={pending !== null}
               onChange={(event) => {
                 const status = event.target.value as RequestStatus;
@@ -145,7 +134,8 @@ export function RequestUpdatePanel({
           <div className="relative">
             <select
               id="request-assignee"
-              className="h-11 w-full rounded-lg border border-input bg-background px-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:opacity-60"
+              className="select-control h-11 w-full rounded-lg border border-input bg-background pl-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25 disabled:opacity-60"
+              data-loading={pending === "assignee"}
               disabled={pending !== null}
               onChange={(event) => {
                 const assigneeId = event.target.value || null;

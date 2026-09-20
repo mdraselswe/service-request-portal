@@ -24,7 +24,7 @@ src/
   components/
     ui/                   Reusable shadcn-style primitives
     layout/               App shell, navigation, and responsive structure
-    requests/             Request-specific presentation and interaction
+    requests/             Request-specific presentation, interaction, and UI hooks
   features/
     auth/                 Auth contracts, session helpers, and actions
     requests/             Query parsing, repository functions, and commands
@@ -37,6 +37,12 @@ public/                   Static assets
 ```
 
 Imports flow inward: route/UI code may call feature and library modules; domain/data modules must not import route components. Prisma modules are marked server-only and never imported into the client graph.
+
+Feature-specific contracts, constants, and rules remain with their owning
+feature. UI-only behavior stays beside the consuming components. Code moves to
+a shared location only when it has multiple genuine consumers and no longer has
+a single feature owner. This prevents both duplication and generic dumping
+grounds.
 
 ## 3. Rendering ownership
 
@@ -63,6 +69,9 @@ URL searchParams
   -> Server Component table/cards
   -> narrow Client Components update only canonical URL parameters
 ```
+
+Overview metrics and recent activity follow the same ownership rule: the route
+renders the result while a server-only request repository owns Prisma access.
 
 ### Request mutation
 
@@ -150,3 +159,19 @@ Accepted. Protected pages render dynamically because their layout reads the auth
 ### ADR-005: Offset pagination
 
 Accepted because explicit page navigation is a requirement and 10,000 records are modest with indexes and bounded page sizes. Cursor pagination is preferred only if the product later moves toward infinite scrolling or far larger/high-churn datasets.
+
+### ADR-007: Feature-oriented ownership without speculative layers
+
+Accepted. Contracts, validation, domain rules, repositories, and commands live
+with the feature they describe. Reusable UI primitives and truly cross-cutting
+infrastructure remain shared. New interfaces, services, hooks, and global state
+are introduced only when a current responsibility, alternate implementation, or
+repeated behavior justifies them.
+
+### ADR-008: Canonical contributor guidance
+
+Accepted. `AGENTS.md` contains mandatory coding-agent rules and
+`CONTRIBUTING.md` explains the implementation workflow for humans and agents.
+The repository does not maintain tool-branded instruction files. Agents that do
+not discover `AGENTS.md` automatically must be directed to it when a task starts,
+which keeps repository guidance portable and prevents conflicting duplication.

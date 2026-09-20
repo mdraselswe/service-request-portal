@@ -1,10 +1,10 @@
 import {
   ChevronDown,
-  LayoutDashboard,
   LogOut,
   Menu,
 } from "lucide-react";
 
+import { BrandMark } from "@/components/brand-mark";
 import { Button } from "@/components/ui/button";
 import { logoutAction } from "@/features/auth/actions";
 import type { AuthenticatedUser } from "@/features/auth/session";
@@ -37,7 +37,7 @@ export function PortalShell({
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 border-r border-border bg-background lg:flex lg:flex-col">
         <div className="flex h-18 items-center gap-3 border-b border-border px-5">
           <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
-            <LayoutDashboard aria-hidden="true" className="size-5" />
+            <BrandMark />
           </span>
           <div>
             <p className="text-sm font-bold leading-tight">Service Portal</p>

@@ -51,7 +51,7 @@ export function RequestResults({
 
   return (
     <div className="overflow-hidden rounded-2xl border border-border bg-background shadow-sm">
-      <div className="divide-y divide-border md:hidden">
+      <div className="divide-y divide-border lg:hidden">
         {items.map((request) => (
           <article className="p-4" data-priority={request.priority} key={request.id}>
             <div className="flex items-start justify-between gap-3">
@@ -108,7 +108,7 @@ export function RequestResults({
         ))}
       </div>
 
-      <div className="hidden overflow-x-auto md:block">
+      <div className="hidden overflow-x-auto lg:block">
         <table className="w-full min-w-[68rem] border-collapse text-left text-sm">
           <caption className="sr-only">Service requests matching the current query</caption>
           <thead className="border-b border-border bg-muted/45 text-xs uppercase tracking-wider text-muted-foreground">

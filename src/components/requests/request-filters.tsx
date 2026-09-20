@@ -5,9 +5,7 @@ import {
   useRef,
   useState,
   useSyncExternalStore,
-  useTransition,
 } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { FilterX, Search, SlidersHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -15,6 +13,8 @@ import { Input } from "@/components/ui/input";
 import { REQUEST_PRIORITIES, REQUEST_STATUSES } from "@/features/requests/constants";
 import type { RequestListQuery } from "@/features/requests/request-query";
 import { cn } from "@/lib/utils";
+
+import { useRequestQueryNavigation } from "./use-request-query-navigation";
 
 type FilterOption = { id: string; name: string };
 
@@ -41,21 +41,10 @@ export function RequestFilters({
   categories: FilterOption[];
   assignees: FilterOption[];
 }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [pending, startTransition] = useTransition();
-
-  function navigate(update: (params: URLSearchParams) => void) {
-    const params = new URLSearchParams(searchParams.toString());
-    update(params);
-    params.delete("page");
-    const target = params.toString() ? `${pathname}?${params}` : pathname;
-    startTransition(() => router.replace(target, { scroll: false }));
-  }
+  const { clearQuery, isPending, replaceQuery } = useRequestQueryNavigation();
 
   function toggleRepeated(name: "status" | "priority", value: string) {
-    navigate((params) => {
+    replaceQuery((params) => {
       const current = params.getAll(name);
       params.delete(name);
       const next = current.includes(value)
@@ -75,10 +64,10 @@ export function RequestFilters({
   return (
     <section
       aria-label="Request search and filters"
-      aria-busy={pending}
+      aria-busy={isPending}
       className={cn(
         "rounded-2xl border border-border bg-background p-4 shadow-sm transition-opacity sm:p-5",
-        pending && "opacity-70",
+        isPending && "opacity-70",
       )}
     >
       <div className="flex flex-col gap-3 xl:flex-row xl:items-center">
@@ -86,7 +75,7 @@ export function RequestFilters({
           key={query.q}
           initialValue={query.q}
           onCommit={(value) =>
-            navigate((params) => {
+            replaceQuery((params) => {
               if (value) params.set("q", value);
               else params.delete("q");
             })
@@ -99,9 +88,9 @@ export function RequestFilters({
           </label>
           <select
             id="category-filter"
-            className="h-11 min-w-44 rounded-lg border border-input bg-background px-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
+            className="select-control h-11 min-w-44 rounded-lg border border-input bg-background pl-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
             onChange={(event) =>
-              navigate((params) => {
+              replaceQuery((params) => {
                 if (event.target.value) params.set("category", event.target.value);
                 else params.delete("category");
               })
@@ -121,9 +110,9 @@ export function RequestFilters({
           </label>
           <select
             id="assignee-filter"
-            className="h-11 min-w-44 rounded-lg border border-input bg-background px-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
+            className="select-control h-11 min-w-44 rounded-lg border border-input bg-background pl-3 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
             onChange={(event) =>
-              navigate((params) => {
+              replaceQuery((params) => {
                 if (event.target.value) params.set("assignee", event.target.value);
                 else params.delete("assignee");
               })
@@ -195,9 +184,7 @@ export function RequestFilters({
               {activeFilterCount} active {activeFilterCount === 1 ? "filter" : "filters"}
             </p>
             <Button
-              onClick={() => {
-                startTransition(() => router.replace(pathname, { scroll: false }));
-              }}
+              onClick={clearQuery}
               size="sm"
               type="button"
               variant="ghost"

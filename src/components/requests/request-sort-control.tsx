@@ -1,9 +1,8 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTransition } from "react";
-
 import type { RequestListQuery } from "@/features/requests/request-query";
+
+import { useRequestQueryNavigation } from "./use-request-query-navigation";
 
 const sortOptions = [
   { value: "updatedAt:desc", label: "Recently updated" },
@@ -16,33 +15,19 @@ const sortOptions = [
 ] as const;
 
 export function RequestSortControl({ query }: { query: RequestListQuery }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const [pending, startTransition] = useTransition();
-
-  function replace(update: (params: URLSearchParams) => void) {
-    const params = new URLSearchParams(searchParams.toString());
-    update(params);
-    params.delete("page");
-    startTransition(() => {
-      router.replace(params.toString() ? `${pathname}?${params}` : pathname, {
-        scroll: false,
-      });
-    });
-  }
+  const { isPending, replaceQuery } = useRequestQueryNavigation();
 
   return (
-    <div className="flex flex-wrap items-center gap-2" aria-busy={pending}>
+    <div className="flex flex-wrap items-center gap-2" aria-busy={isPending}>
       <label className="text-xs font-semibold text-muted-foreground" htmlFor="page-size">
         Rows
       </label>
       <select
         id="page-size"
-        className="h-9 rounded-lg border border-input bg-background px-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
-        disabled={pending}
+        className="select-control h-9 rounded-lg border border-input bg-background pl-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
+        disabled={isPending}
         onChange={(event) =>
-          replace((params) => {
+          replaceQuery((params) => {
             if (event.target.value === "25") params.delete("pageSize");
             else params.set("pageSize", event.target.value);
           })
@@ -57,11 +42,11 @@ export function RequestSortControl({ query }: { query: RequestListQuery }) {
       <label className="sr-only" htmlFor="request-sort">Sort requests</label>
       <select
         id="request-sort"
-        className="h-9 min-w-44 rounded-lg border border-input bg-background px-2 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
-        disabled={pending}
+        className="select-control h-9 min-w-44 rounded-lg border border-input bg-background pl-2 text-sm font-medium outline-none focus-visible:ring-2 focus-visible:ring-ring/25"
+        disabled={isPending}
         onChange={(event) => {
           const [sort, order] = event.target.value.split(":");
-          replace((params) => {
+          replaceQuery((params) => {
             if (sort === "updatedAt") params.delete("sort");
             else params.set("sort", sort ?? "updatedAt");
             if (order === "desc") params.delete("order");

@@ -70,7 +70,22 @@ yarn test:e2e
 - Status and assignee changes use authenticated, validated, transactional API operations with immediate optimistic feedback and rollback.
 - The interface uses semantic HTML, visible focus states, reduced-motion handling, and responsive content-first layouts.
 
-See `TECH_SPEC.md` for contracts, `ARCHITECTURE.md` for system boundaries and decisions, `REQUIREMENTS_CHECKLIST.md` for traceability, and `IMPLEMENTATION_PLAN.md` for delivery phases.
+## Documentation and contributor entry points
+
+| Document | Audience and purpose |
+| --- | --- |
+| [`README.md`](README.md) | Setup, commands, delivered features, and operational notes |
+| [`CONTRIBUTING.md`](CONTRIBUTING.md) | Required implementation workflow for human contributors |
+| [`AGENTS.md`](AGENTS.md) | Single source of truth for every coding agent, regardless of vendor or tool |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | System boundaries, data flows, and architectural decisions |
+| [`docs/TECH_SPEC.md`](docs/TECH_SPEC.md) | Functional and technical contracts |
+| [`docs/REQUIREMENTS_CHECKLIST.md`](docs/REQUIREMENTS_CHECKLIST.md) | Assessment requirement traceability |
+| [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md) | Delivery phases and verification records |
+
+All contributors must preserve the documented architecture and quality gates.
+Human contributors should begin with `CONTRIBUTING.md`. Coding agents must read
+and follow `AGENTS.md` before inspecting or changing code; if an AI tool does not
+discover it automatically, include that instruction in the task prompt.
 
 ## Feature overview
 
@@ -116,4 +131,4 @@ Use `admin@assunnah.org` with password `Portal@123`. These credentials are stric
 
 ## Repository policy
 
-This repository intentionally has no Git remote in the first milestone. Local environment files, databases, generated output, reports, and dependencies are ignored.
+Local environment files, databases, generated output, reports, and dependencies are ignored. Changes should pass the documented quality gates before they are committed or opened as a pull request.

@@ -1,14 +1,37 @@
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  MoreHorizontal,
+} from "lucide-react";
 
 import { buttonVariants } from "@/components/ui/button";
 import { requestListHref, type RequestListQuery } from "@/features/requests/request-query";
 import { cn } from "@/lib/utils";
 
-function pageWindow(current: number, total: number) {
-  const start = Math.max(1, Math.min(current - 2, total - 4));
-  const end = Math.min(total, Math.max(current + 2, 5));
-  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+type PaginationItem = number | "start-ellipsis" | "end-ellipsis";
+
+function paginationItems(current: number, total: number): PaginationItem[] {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, index) => index + 1);
+  }
+  if (current <= 4) {
+    return [1, 2, 3, 4, 5, "end-ellipsis", total];
+  }
+  if (current >= total - 3) {
+    return [1, "start-ellipsis", total - 4, total - 3, total - 2, total - 1, total];
+  }
+  return [
+    1,
+    "start-ellipsis",
+    current - 1,
+    current,
+    current + 1,
+    "end-ellipsis",
+    total,
+  ];
 }
 
 export function RequestPagination({
@@ -29,30 +52,72 @@ export function RequestPagination({
       </p>
       <div className="flex items-center gap-1">
         {query.page > 1 ? (
-          <Link className={buttonVariants({ size: "sm", variant: "outline" })} href={hrefFor(query.page - 1)}>
+          <Link
+            aria-label="First page"
+            className={buttonVariants({ size: "sm", variant: "outline" })}
+            href={hrefFor(1)}
+          >
+            <ChevronsLeft aria-hidden="true" />
+          </Link>
+        ) : null}
+        {query.page > 1 ? (
+          <Link
+            aria-label="Previous page"
+            className={buttonVariants({ size: "sm", variant: "outline" })}
+            href={hrefFor(query.page - 1)}
+          >
             <ChevronLeft aria-hidden="true" />
-            <span className="sr-only sm:not-sr-only">Previous</span>
           </Link>
         ) : null}
         <div className="hidden items-center gap-1 sm:flex">
-          {pageWindow(query.page, totalPages).map((page) => (
-            <Link
-              aria-current={page === query.page ? "page" : undefined}
-              className={cn(
-                buttonVariants({ size: "sm", variant: page === query.page ? "default" : "ghost" }),
-                "min-w-9",
-              )}
-              href={hrefFor(page)}
-              key={page}
-            >
-              {page}
-            </Link>
-          ))}
+          {paginationItems(query.page, totalPages).map((item) =>
+            typeof item === "number" ? (
+              <Link
+                aria-current={item === query.page ? "page" : undefined}
+                aria-label={
+                  item === query.page
+                    ? `Page ${item}, current page`
+                    : `Go to page ${item}`
+                }
+                className={cn(
+                  buttonVariants({
+                    size: "sm",
+                    variant: item === query.page ? "default" : "ghost",
+                  }),
+                  "min-w-9",
+                )}
+                href={hrefFor(item)}
+                key={item}
+              >
+                {item}
+              </Link>
+            ) : (
+              <span
+                aria-hidden="true"
+                className="grid size-9 place-items-center text-muted-foreground"
+                key={item}
+              >
+                <MoreHorizontal className="size-4" />
+              </span>
+            ),
+          )}
         </div>
         {query.page < totalPages ? (
-          <Link className={buttonVariants({ size: "sm", variant: "outline" })} href={hrefFor(query.page + 1)}>
-            <span className="sr-only sm:not-sr-only">Next</span>
+          <Link
+            aria-label="Next page"
+            className={buttonVariants({ size: "sm", variant: "outline" })}
+            href={hrefFor(query.page + 1)}
+          >
             <ChevronRight aria-hidden="true" />
+          </Link>
+        ) : null}
+        {query.page < totalPages ? (
+          <Link
+            aria-label="Last page"
+            className={buttonVariants({ size: "sm", variant: "outline" })}
+            href={hrefFor(totalPages)}
+          >
+            <ChevronsRight aria-hidden="true" />
           </Link>
         ) : null}
       </div>

@@ -65,3 +65,36 @@ test("sorts priorities in business order", async ({ page }) => {
   expect(priorities).toHaveLength(10);
   expect(new Set(priorities)).toEqual(new Set(["URGENT"]));
 });
+
+test("uses a content-appropriate result layout at each breakpoint", async ({
+  page,
+}) => {
+  await page.goto("/requests?pageSize=10");
+  await expect(page.getByRole("heading", { name: "Service requests" })).toBeVisible();
+
+  const viewportWidth = page.viewportSize()?.width ?? 1280;
+  const table = page.getByRole("table");
+  const visibleCards = page.locator("article[data-priority]:visible");
+
+  if (viewportWidth < 1024) {
+    await expect(table).toBeHidden();
+    await expect(visibleCards).toHaveCount(10);
+  } else {
+    await expect(table).toBeVisible();
+    await expect(visibleCards).toHaveCount(0);
+  }
+
+  const faviconHref = await page.locator('link[rel="icon"]').getAttribute("href");
+  expect(faviconHref).toContain("icon.svg");
+  expect(
+    await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth),
+  ).toBe(true);
+
+  await page.getByRole("link", { name: "Last page" }).click();
+  await expect(page).toHaveURL(/page=1005/);
+  await expect(page.getByText("Page 1005 of 1005")).toBeVisible();
+
+  await page.getByRole("link", { name: "First page" }).click();
+  await expect(page).not.toHaveURL(/page=/);
+  await expect(page.getByText("Page 1 of 1005")).toBeVisible();
+});

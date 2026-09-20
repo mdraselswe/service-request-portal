@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import type { AuthenticatedUser } from "@/features/auth/session";
 import { db } from "@/lib/db";
 
+import type { RequestMutationResult } from "./request-contracts";
 import type { RequestMutationInput } from "./request-mutation-schema";
 import { canTransitionStatus, isRequestStatus } from "./request-transitions";
 
@@ -19,18 +20,6 @@ export class RequestCommandError extends Error {
   }
 }
 
-export type RequestMutationResult = {
-  request: {
-    requestNumber: string;
-    status: string;
-    version: number;
-    updatedAt: string;
-    resolvedAt: string | null;
-    assignee: { id: string; name: string } | null;
-  };
-  replayed: boolean;
-};
-
 const resultSelect = {
   requestNumber: true,
   status: true,
@@ -42,7 +31,11 @@ const resultSelect = {
 
 function serializeRequest(
   request: Prisma.ServiceRequestGetPayload<{ select: typeof resultSelect }>,
-) {
+): RequestMutationResult["request"] {
+  if (!isRequestStatus(request.status)) {
+    throw new RequestCommandError("INVALID_STATE", "The request status is invalid.", 409);
+  }
+
   return {
     requestNumber: request.requestNumber,
     status: request.status,

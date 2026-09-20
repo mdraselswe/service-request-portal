@@ -5,6 +5,7 @@ import {
   RequestCommandError,
   updateRequest,
 } from "@/features/requests/request-command";
+import type { RequestMutationResponse } from "@/features/requests/request-contracts";
 import { requestMutationSchema } from "@/features/requests/request-mutation-schema";
 
 type RouteContext = {
@@ -14,7 +15,7 @@ type RouteContext = {
 export async function PATCH(request: Request, { params }: RouteContext) {
   const user = await getCurrentUser();
   if (!user) {
-    return NextResponse.json(
+    return NextResponse.json<RequestMutationResponse>(
       { ok: false, error: { code: "UNAUTHORIZED", message: "Authentication required." } },
       { status: 401, headers: { "Cache-Control": "no-store" } },
     );
@@ -24,7 +25,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json(
+    return NextResponse.json<RequestMutationResponse>(
       { ok: false, error: { code: "INVALID_JSON", message: "Request body must be valid JSON." } },
       { status: 400, headers: { "Cache-Control": "no-store" } },
     );
@@ -32,7 +33,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 
   const parsed = requestMutationSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json(
+    return NextResponse.json<RequestMutationResponse>(
       {
         ok: false,
         error: {
@@ -48,20 +49,20 @@ export async function PATCH(request: Request, { params }: RouteContext) {
   try {
     const { requestId } = await params;
     const result = await updateRequest(requestId, user, parsed.data);
-    return NextResponse.json(
+    return NextResponse.json<RequestMutationResponse>(
       { ok: true, data: result },
       { headers: { "Cache-Control": "no-store" } },
     );
   } catch (error) {
     if (error instanceof RequestCommandError) {
-      return NextResponse.json(
+      return NextResponse.json<RequestMutationResponse>(
         { ok: false, error: { code: error.code, message: error.message } },
         { status: error.status, headers: { "Cache-Control": "no-store" } },
       );
     }
 
     console.error("Request update failed", error);
-    return NextResponse.json(
+    return NextResponse.json<RequestMutationResponse>(
       {
         ok: false,
         error: {

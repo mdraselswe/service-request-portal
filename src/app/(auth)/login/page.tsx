@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { CheckCircle2, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { CheckCircle2, ShieldCheck } from "lucide-react";
 
+import { BrandMark } from "@/components/brand-mark";
 import { LoginForm } from "@/components/auth/login-form";
 import { Badge } from "@/components/ui/badge";
 import { getCurrentUser } from "@/features/auth/session";
@@ -34,7 +35,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         />
         <div className="relative flex items-center gap-3">
           <span className="grid size-11 place-items-center rounded-xl bg-white/10 ring-1 ring-white/15">
-            <LayoutDashboard aria-hidden="true" className="size-5" />
+            <BrandMark />
           </span>
           <div>
             <p className="font-bold">Service Request Portal</p>
@@ -76,7 +77,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         <div className="w-full max-w-md">
           <div className="mb-8 flex items-center gap-3 lg:hidden">
             <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
-              <LayoutDashboard aria-hidden="true" className="size-5" />
+              <BrandMark />
             </span>
             <div>
               <p className="text-sm font-bold">Service Request Portal</p>

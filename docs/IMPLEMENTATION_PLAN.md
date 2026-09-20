@@ -87,3 +87,46 @@ Status: completed and verified on 2026-09-20
 Exit criteria: complete runnable implementation, all applicable checklist items complete, and every verification gate green.
 
 Verification record: response security headers, cache behavior, responsive layouts, horizontal overflow, semantic structure, focus handling, live announcements, and reduced-motion styling were reviewed. Automated WCAG A/AA scans passed on login, overview, request list, and request details in desktop, tablet, and mobile Chromium profiles. The complete database, lint, strict typecheck, unit/component test, production build, and Playwright gates passed before final delivery.
+
+## Phase 7 - Maintainability and contributor workflow
+
+Status: completed and verified on 2026-09-20
+
+- Centralize request URL navigation behavior in a focused UI hook shared by filters and sorting.
+- Move overview persistence access behind the request feature repository boundary.
+- Share the request mutation response contract between the Route Handler and interactive client.
+- Establish `AGENTS.md` as the single tool-neutral coding-agent policy without per-tool instruction files.
+- Add a human-readable contribution guide covering ownership, dependency direction, reuse, extraction, scale thresholds, and definition of done.
+- Add a GitHub Actions quality gate for Prisma validation, lint, strict typecheck, tests, and production build.
+
+Exit criteria: the refactor preserves all user behavior, contributor instructions have one source of truth, and all local quality and browser regression gates pass.
+
+Verification record: diff validation and the English-only source scan passed; ESLint, strict TypeScript, all 23 unit/component tests, the Next.js production build, and all 36 desktop/tablet/mobile Playwright tests passed.
+
+## Phase 8 - Loading experience and responsive polish
+
+Status: completed and verified on 2026-09-20
+
+- Add a reusable, reduced-motion-aware shimmer skeleton primitive.
+- Match loading structures to the login, overview, request list, and request detail layouts.
+- Add a compact custom brand mark and an App Router favicon using the same visual language.
+- Keep request cards through tablet widths and reserve the dense table for desktop viewports.
+- Add browser assertions for breakpoint-specific result presentation, favicon discovery, and page overflow.
+
+Exit criteria: loading states preserve the final page hierarchy, branding is consistent, and desktop, tablet, and mobile layouts remain accessible without page-level horizontal overflow.
+
+Verification record: the English-only scan, diff validation, ESLint, strict TypeScript, all 23 unit/component tests, the production build including the static `/icon.svg` route, and all 39 desktop/tablet/mobile Playwright tests passed.
+
+## Phase 9 - Dashboard control consistency
+
+Status: completed and verified on 2026-09-20
+
+- Align overview and request-list content to the same desktop container width.
+- Give every request-related native select a consistent custom chevron and protected right-side spacing.
+- Add accessible first, previous, nearby-page, next, and last navigation with ellipses for large page counts.
+- Preserve URL-owned filters, sorting, and bounded server-side pagination without loading additional records into the browser.
+- Verify direct first/last navigation and responsive overflow at desktop, tablet, and mobile widths.
+
+Exit criteria: dashboard pages align consistently, select text cannot collide with its chevron, and any results page is reachable without increasing query or client-state complexity.
+
+Verification record: diff validation, ESLint, strict TypeScript, all 23 unit/component tests, the production build, and all 39 desktop/tablet/mobile Playwright tests passed. Browser tests navigated directly to page 1,005 and back to page 1 while preserving the URL query contract.

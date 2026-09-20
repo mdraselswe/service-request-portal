@@ -2,6 +2,19 @@
 
 These rules apply to the entire `service-request-portal` repository.
 
+## Required context before changing code
+
+1. Read this file completely.
+2. Read `docs/ARCHITECTURE.md` and `CONTRIBUTING.md`.
+3. Read the relevant feature, its tests, and nearby components before proposing a new module.
+4. Inspect the working tree and preserve unrelated changes.
+5. Search for an existing component, contract, schema, constant, hook, or utility before creating one.
+
+`AGENTS.md` is the single, tool-neutral instruction source for coding agents.
+Do not create tool-branded instruction files or duplicate these rules elsewhere.
+When an agent does not discover this file automatically, explicitly instruct it
+to read `AGENTS.md` before starting the task.
+
 ## Scope and safety
 
 - Modify only files inside this repository unless the owner explicitly expands scope.
@@ -21,12 +34,26 @@ These rules apply to the entire `service-request-portal` repository.
 
 ## Architecture and quality
 
-- Follow `ARCHITECTURE.md` boundaries and update it when an architectural decision changes.
+- Follow `docs/ARCHITECTURE.md` boundaries and update it when an architectural decision changes.
 - Keep route components thin; place domain queries, commands, schemas, and pure utilities in feature modules.
+- Keep feature-specific code close to its feature. Promote code to a shared location only after it has multiple genuine consumers.
+- Reuse existing contracts, schemas, constants, components, and helpers. Do not create a second representation of the same concept.
+- Keep business rules framework-independent. Hooks and components may orchestrate UI behavior but must not own server-side policy.
+- Prefer clear, direct code over speculative abstractions. Do not add repositories, services, hooks, global state, or factories without a current responsibility they simplify.
+- Preserve the import direction documented in `docs/ARCHITECTURE.md`; do not import route modules from features or server-only modules from Client Components.
 - Validate every external boundary and return typed, consistent errors.
 - Build accessible semantic interfaces with keyboard operation and visible focus.
 - Add or update tests with behavioral changes.
 - Do not weaken lint, TypeScript, or test rules to make a failure disappear.
+
+## Task workflow
+
+- Restate the acceptance criteria and identify the owning feature before editing.
+- Make the smallest cohesive change that satisfies the task.
+- Extend an existing module when it has the same responsibility; create a new module when the responsibility is distinct.
+- Keep UI, validation, domain rules, persistence, and transport concerns at their documented boundaries.
+- Update documentation only when behavior, setup, contracts, or architectural decisions change.
+- Review the final diff for duplicate logic, accidental client boundaries, unsafe casts, dead code, and unrelated edits.
 
 ## Required verification
 
@@ -43,10 +70,11 @@ Run relevant Playwright tests once critical browser flows exist. Report commands
 
 ## Documentation discipline
 
-- Keep `REQUIREMENTS_CHECKLIST.md` traceable to delivered behavior.
-- Keep `IMPLEMENTATION_PLAN.md` phase status current.
+- Keep `docs/REQUIREMENTS_CHECKLIST.md` traceable to delivered behavior.
+- Keep `docs/IMPLEMENTATION_PLAN.md` phase status current.
 - Keep README setup commands executable from a fresh checkout.
 - Document test credentials without documenting production secrets.
+- Keep `CONTRIBUTING.md` accurate for both human and automated contributors.
 
 <!-- BEGIN:nextjs-agent-rules -->
 

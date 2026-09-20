@@ -3,44 +3,24 @@ import { ArrowUpRight, CheckCircle2, Clock3, Inbox, Users } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { db } from "@/lib/db";
+import { getOverviewData } from "@/features/requests/overview-repository";
 
 export const metadata: Metadata = {
   title: "Overview",
 };
 
 export default async function OverviewPage() {
-  const [open, inProgress, resolved, activeAgents, recentRequests] =
-    await Promise.all([
-      db.serviceRequest.count({ where: { status: "OPEN" } }),
-      db.serviceRequest.count({ where: { status: "IN_PROGRESS" } }),
-      db.serviceRequest.count({ where: { status: "RESOLVED" } }),
-      db.user.count({ where: { role: "AGENT", isActive: true } }),
-      db.serviceRequest.findMany({
-        take: 5,
-        orderBy: { updatedAt: "desc" },
-        select: {
-          id: true,
-          requestNumber: true,
-          subject: true,
-          status: true,
-          priority: true,
-          updatedAt: true,
-          requester: { select: { name: true } },
-          assignee: { select: { name: true } },
-        },
-      }),
-    ]);
+  const { counts, recentRequests } = await getOverviewData();
 
   const stats = [
-    { label: "Open requests", value: open, detail: "Awaiting action", icon: Inbox },
-    { label: "In progress", value: inProgress, detail: "Currently owned", icon: Clock3 },
-    { label: "Resolved", value: resolved, detail: "Completed requests", icon: CheckCircle2 },
-    { label: "Active agents", value: activeAgents, detail: "Available team members", icon: Users },
+    { label: "Open requests", value: counts.open, detail: "Awaiting action", icon: Inbox },
+    { label: "In progress", value: counts.inProgress, detail: "Currently owned", icon: Clock3 },
+    { label: "Resolved", value: counts.resolved, detail: "Completed requests", icon: CheckCircle2 },
+    { label: "Active agents", value: counts.activeAgents, detail: "Available team members", icon: Users },
   ] as const;
 
   return (
-    <div className="mx-auto max-w-7xl">
+    <div className="mx-auto max-w-[96rem]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-primary">Operations overview</p>
